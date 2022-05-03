@@ -1,11 +1,12 @@
 import React from "react";
 import RouterSwitch from "./router";
+import Providers from "./providers";
 
 function App() {
   return (
-    <div className="App">
+    <Providers>
       <RouterSwitch />
-    </div>
+    </Providers>
   );
 }
 
