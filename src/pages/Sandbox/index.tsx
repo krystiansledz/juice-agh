@@ -2,14 +2,15 @@ import React from "react";
 import { useForm, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "../../yup";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
+import { useSnackbar } from "notistack";
+import { notificationVariants } from "../../notistack/constants";
 
 const schema = yup
   .object()
   .shape({
     name: yup.string().required(),
-    age: yup.number().required(),
   })
   .required();
 
@@ -21,20 +22,29 @@ const SandboxPage: React.FC<Props> = () => {
   });
   const { errors } = useFormState({ control });
 
-  console.log(errors);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   return (
-    <form onSubmit={handleSubmit((d) => console.log(d))}>
-      <DesktopDatePicker
-        label="Date desktop"
-        inputFormat="MM/dd/yyyy"
-        value={new Date()}
-        onChange={() => {}}
-        renderInput={(params: any) => <TextField {...params} />}
-      />
-      <input {...register("name")} />
-      <input type="number" {...register("age")} />
-      <input type="submit" />
+    <form
+      onSubmit={handleSubmit((data) => {
+        console.log(data);
+        enqueueSnackbar("Wysłano formularz", {
+          variant: notificationVariants.SUCCESS,
+        });
+      })}
+    >
+      <TextField {...register("name")} />
+      <Button type="submit">Wyślij</Button>
+      <Button
+        type={"button"}
+        onClick={() =>
+          enqueueSnackbar("Info snackbar", {
+            variant: notificationVariants.INFO,
+          })
+        }
+      >
+        Snackbar
+      </Button>
     </form>
   );
 };
