@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, RouteProps, useLocation } from "react-router";
 import AppPaths from "../appPaths";
+import Layout from "../../pages/Layout";
 
 // TODO: Move to login api
 const useIsAuthenticated = () => {
@@ -31,7 +32,7 @@ const AuthenticatedRoute: React.FC<Props> = ({ children, ...rest }) => {
     );
   }
 
-  return children;
+  return <Layout>{children}</Layout>;
 };
 
 export default AuthenticatedRoute;
