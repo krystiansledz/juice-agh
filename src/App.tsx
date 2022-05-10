@@ -13,6 +13,7 @@ function App() {
           width: "100vw",
           overflow: "hidden",
         }}
+        maxWidth={false}
       >
         <RouterSwitch />
       </Container>

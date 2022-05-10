@@ -18,6 +18,7 @@ const yupLocale = (customConfig?: LocaleObject) => {
       ...customConfig?.mixed,
     },
     string: {
+      email: () => "To nie jest email",
       max: (params) => `To pole nie może być dłuższe niż ${params.max} znaków`,
       url: () => `To nie jest link`,
       ...customConfig?.string,

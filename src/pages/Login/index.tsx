@@ -1,12 +1,13 @@
-import { Container, Grid, Stack, Typography, Button } from "@mui/material";
+import { Grid, Stack, Typography, Button } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginFieldValues, LoginSchema } from "./form";
 import TextInput from "../../components/Form/TextInput";
-import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 import AppPaths from "../../router/appPaths";
+import PasswordInput from "../../components/Form/PasswordInput";
+import { Form } from "../../components/Form/StyledComponents";
 
 type Props = {};
 
@@ -33,7 +34,7 @@ const LoginPage: React.FC<Props> = () => {
             Logowanie
           </Typography>
           <TextInput label={"Email"} name={"email"} control={control} />
-          <TextInput label={"Hasło"} name={"password"} control={control} />
+          <PasswordInput label={"Hasło"} name={"password"} control={control} />
           <Button type="submit" variant="contained">
             Zaloguj się
           </Button>
@@ -52,8 +53,3 @@ const LoginPage: React.FC<Props> = () => {
 };
 
 export default LoginPage;
-
-const Form = styled.form`
-  width: 100%;
-  color: white;
-`;

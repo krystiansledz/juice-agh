@@ -6,6 +6,6 @@ export type LoginFieldValues = {
 };
 
 export const LoginSchema = yup.object().shape({
-  email: yup.string().required(),
+  email: yup.string().email().required(),
   password: yup.string().required(),
 });
