@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "../../yup";
 import CheckboxWithLabel from "../../components/Form/CheckboxWithLabel";
+import Button from "../../components/Form/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AlarmIcon from "@mui/icons-material/Alarm";
 
 type InputFields = {
   name: string;
@@ -51,7 +54,15 @@ const SandboxPage: React.FC<Props> = () => {
           label={"test"}
           control={control}
         />
-        <button>Submit</button>
+        <Button
+          name={"names"}
+          type={"submit"}
+          variant={"outlined"}
+          label={"Sprawdź"}
+          startIcon={<DeleteIcon />}
+          endIcon={<AlarmIcon />}
+          control={control}
+        />
       </form>
     </div>
   );
