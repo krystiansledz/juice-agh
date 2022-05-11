@@ -22,7 +22,7 @@ const CheckboxWithLabel: React.FC<Props> = (props) => {
         color:
           errors && !!errors[name]
             ? (theme) => theme.palette.error.main
-            : "white",
+            : "default",
       }}
     />
   );

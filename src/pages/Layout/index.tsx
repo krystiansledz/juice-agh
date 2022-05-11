@@ -11,7 +11,7 @@ type Props = {
 const Layout: React.FC<Props> = (props) => {
   const { children } = props;
 
-  const [isDrawerOpen, setDrawerOpen] = useState<boolean>(true);
+  const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   const toggleDrawer = () => {
     setDrawerOpen((prev) => !prev);

@@ -21,7 +21,7 @@ const Checkbox: React.FC<Props> = (props) => {
         <FormControl>
           <MuiCheckbox
             sx={{
-              color: !!error ? (theme) => theme.palette.error.main : "white",
+              color: !!error ? (theme) => theme.palette.error.main : "default",
             }}
             {...field}
           />

@@ -12,6 +12,7 @@ function App() {
           minHeight: "100vh",
           width: "100vw",
           overflow: "hidden",
+          padding: "0 !important",
         }}
         maxWidth={false}
       >
