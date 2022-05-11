@@ -8,6 +8,8 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import EventIcon from "@mui/icons-material/Event";
 import GroupIcon from "@mui/icons-material/Group";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import { useTheme } from "@mui/material";
+import { appColors } from "../../theme/defaults";
 
 type DrawerItemProps = {
   text: string;
@@ -21,6 +23,8 @@ type Props = {
 
 const DrawerItems: React.FC<Props> = (props) => {
   const { isOpen } = props;
+  const theme = useTheme();
+
   const items: Array<DrawerItemProps> = [
     {
       text: "Wydarzenia",
@@ -55,6 +59,7 @@ const DrawerItems: React.FC<Props> = (props) => {
             minHeight: 48,
             justifyContent: isOpen ? "initial" : "center",
             px: 2.5,
+            color: appColors.white,
           }}
         >
           <ListItemIcon
@@ -62,6 +67,7 @@ const DrawerItems: React.FC<Props> = (props) => {
               minWidth: 0,
               mr: isOpen ? 3 : "auto",
               justifyContent: "center",
+              color: "currentColor",
             }}
           >
             {icon}

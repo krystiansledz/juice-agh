@@ -4,9 +4,12 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { StyledMenu } from "./styles";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/system/Box";
+import { useNavigate } from "react-router-dom";
+import AppPaths from "../../../router/appPaths";
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -26,8 +29,22 @@ const UserMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            navigate(AppPaths.Profile());
+          }}
+        >
+          Mój profil
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            navigate(AppPaths.Login());
+          }}
+        >
+          Wyloguj się
+        </MenuItem>
       </StyledMenu>
     </Box>
   );

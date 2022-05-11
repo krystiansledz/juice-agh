@@ -6,7 +6,9 @@ const GlobalStyles = () => (
     styles={{
       body: {
         overflow: "hidden",
-        backgroundColor: "#333333",
+      },
+      "MuiDrawer-paper": {
+        backgroundColor: "red",
       },
     }}
   />
