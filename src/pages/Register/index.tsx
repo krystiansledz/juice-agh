@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Auth, { Form } from "../../components/Auth";
 import PasswordInput from "../../components/Form/PasswordInput";
+import Select from "src/components/Form/Select";
+
 
 const RegisterPage: React.FC = () => {
   const { handleSubmit, control } = useForm<RegisterFieldValues>({
@@ -22,6 +24,20 @@ const RegisterPage: React.FC = () => {
       <Auth title={"Rejestracja"} buttonLinks={buttonLinks}>
         <TextInput label={"Email"} name={"email"} control={control} />
         <PasswordInput label={"Hasło"} name={"password"} control={control} />
+        <PasswordInput label={"Powtórz hasło"} name={"password-repeat"} control={control} />
+        <Select
+          name="block"
+          control={control}
+          options={[
+            { label: "Test 1", value: "1" },
+            { label: "Test 2", value: "2" },
+          ]}
+        />
+
+
+        <TextInput label={"Nazwa koła"} name={"research-group"} control={control} />
+        <TextInput label={"Imie"} name={"first-name"} control={control} />
+        <TextInput label={"Nazwisko"} name={"last-name"} control={control} />
         <Button type="submit" variant="contained">
           Zarejestruj się
         </Button>
