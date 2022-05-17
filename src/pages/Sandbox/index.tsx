@@ -25,7 +25,7 @@ const schema = yup.object().shape({
 type Props = {};
 
 const SandboxPage: React.FC<Props> = () => {
-  const { handleSubmit, control } = useForm<InputFields>({
+  const { handleSubmit, control, setValue } = useForm<InputFields>({
     resolver: yupResolver(schema),
     defaultValues: {
       test: false,
@@ -64,16 +64,18 @@ const SandboxPage: React.FC<Props> = () => {
           label={"test"}
           control={control}
         />
-        <ImageInput name={"test2"} control={control}
+        <ImageInput
+          name={"test2"}
+          control={control}
           src={imagePreview}
           alt={"test"}
           onChange={handleSetImage}
           height={"100px"}
           width={"100px"}
           disabled={false}
+          setValue={setValue}
         />
         <button>Submit</button>
-
       </form>
     </div>
   );
