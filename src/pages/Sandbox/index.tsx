@@ -56,8 +56,7 @@ const SandboxPage: React.FC<Props> = () => {
         />
         <button>Submit</button>
         <Select name={"test1"} control={control}
-        defaultValue={"1"}
-          values={[
+          options={[
             { label: "Test 1", value: "1" },
             { label: "Test 2", value: "2" },
             { label: "Test 3", value: "3" },

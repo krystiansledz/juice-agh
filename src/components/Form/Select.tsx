@@ -1,5 +1,5 @@
 import React from "react";
-import { Controller } from "react-hook-form";
+import { Controller, useFormState } from "react-hook-form";
 import { Control } from "react-hook-form/dist/types/form";
 import {
   Select as MuiSelect,
@@ -11,19 +11,24 @@ import {
 type Props = {
   control: Control<any>;
   name: string;
-  defaultValue?: string;
   disabled?: boolean;
-  values: { label: string; value: string }[];
+  options: { label: string; value: string }[];
 };
+
+export type SelectOption = {
+  label: string;
+  value: string;
+}
 
 const Select: React.FC<Props> = (props) => {
   const {
     name,
     control,
-    defaultValue,
     disabled = false,
-    values: options,
+    options,
   } = props;
+
+  const { errors } = useFormState({ control });
 
   return (
     <Controller
@@ -31,9 +36,11 @@ const Select: React.FC<Props> = (props) => {
         <FormControl>
           <MuiSelect
             disabled={disabled}
-            defaultValue={defaultValue}
             sx={{
-              color: !!error ? (theme) => theme.palette.error.main : "white",
+              color:
+                errors && !!errors[name]
+                  ? (theme) => theme.palette.error.main
+                  : "default",
             }}
             {...field}
           >
