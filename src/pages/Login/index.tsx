@@ -15,20 +15,13 @@ const LoginPage: React.FC = () => {
 
   const onSubmit = (data: LoginFieldValues) => {};
 
-  const buttonLinks = [
-    { to: AppPaths.ForgotPassword(), text: "Nie pamiętasz hasła?" },
-    { to: AppPaths.Register(), text: "Zarejestruj się" },
-  ];
-
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Auth title={"Logowanie"} buttonLinks={buttonLinks}>
-        <TextInput label={"Email"} name={"email"} control={control} />
-        <PasswordInput label={"Hasło"} name={"password"} control={control} />
-        <Button type="submit" variant="contained">
-          Zaloguj się
-        </Button>
-      </Auth>
+      <TextInput label={"Email"} name={"email"} control={control} />
+      <PasswordInput label={"Hasło"} name={"password"} control={control} />
+      <Button type="submit" variant="contained">
+        Zaloguj się
+      </Button>
     </Form>
   );
 };

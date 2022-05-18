@@ -8,7 +8,8 @@ import {
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material";
 import React from "react";
-
+import { plPL } from "@mui/x-data-grid";
+import { plPL as corePlPL } from "@mui/material/locale";
 import GlobalStyles from "./global";
 import defaultOptions from "./defaults";
 
@@ -19,7 +20,7 @@ type Props = {
 const ThemeProvider: React.FC<Props> = (props) => {
   const { children } = props;
 
-  const theme = createTheme(defaultOptions);
+  const theme = createTheme(defaultOptions, plPL, corePlPL);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import AppPaths from "./appPaths";
 import { Navigate } from "react-router-dom";
-import EventsPage from "../pages/Events";
+import EventsPage from "../pages/Events/list";
 import ProfilePage from "../pages/Profile";
 import LoginPage from "../pages/Login";
 import RegisterPage from "../pages/Register";
