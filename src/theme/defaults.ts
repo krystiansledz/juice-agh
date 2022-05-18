@@ -1,6 +1,4 @@
-import { createTheme, ThemeOptions } from "@mui/material";
-
-const theme = createTheme();
+import { ThemeOptions } from "@mui/material/styles";
 
 export const appColors = {
   primary: "#00693C",
@@ -35,6 +33,16 @@ const defaultOptions: ThemeOptions = {
     success: {
       main: "#a5d6a7",
     },
+    opaque: {
+      50: "rgba(0, 0, 0, 0.05)",
+      100: "rgba(0, 0, 0, 0.1)",
+      150: "rgba(0, 0, 0, 0.15)",
+      200: "rgba(0, 0, 0, 0.2)",
+      300: "rgba(0, 0, 0, 0.3)",
+      400: "rgba(0, 0, 0, 0.4)",
+      500: "rgba(0, 0, 0, 0.5)",
+      600: "rgba(0, 0, 0, 0.6)",
+    },
   },
   typography: {
     fontSize: 14,
@@ -65,14 +73,7 @@ const defaultOptions: ThemeOptions = {
         },
       },
     },
-    // MuiListItemIcon: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: "currentColor",
-    //     },
-    //   },
-    // },
   },
-};
+} as ThemeOptions;
 
 export default defaultOptions;
