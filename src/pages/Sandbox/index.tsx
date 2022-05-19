@@ -6,6 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "../../yup";
 import CheckboxWithLabel from "../../components/Form/CheckboxWithLabel";
 import Select from "../../components/Form/Select";
+import WithLabel from "src/components/Form/WithLabel";
+import { Chip } from "@mui/material";
+
 
 type InputFields = {
   name: string;
@@ -55,13 +58,18 @@ const SandboxPage: React.FC<Props> = () => {
           control={control}
         />
         <button>Submit</button>
-        <Select name={"test1"} control={control}
+        <Select
+          name={"test1"}
+          control={control}
           options={[
             { label: "Test 1", value: "1" },
             { label: "Test 2", value: "2" },
             { label: "Test 3", value: "3" },
           ]}
         />
+        <WithLabel label={"Nazwa"}>
+          <Chip label="Czerwony"/>
+        </WithLabel>
       </form>
     </div>
   );
