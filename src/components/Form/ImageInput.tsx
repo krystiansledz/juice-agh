@@ -19,11 +19,7 @@ const ImageInput: React.FC<Props> = (props) => {
   const {
     name,
     control,
-    alt,
-    src,
-    disabled = false,
-    height,
-    width,
+    disabled,
     setValue,
   } = props;
 
@@ -38,17 +34,16 @@ const ImageInput: React.FC<Props> = (props) => {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const handleClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+
   return (
     <Controller
       render={({ field, fieldState: { error } }) => (
         <FormControl>
-          <img
-            src={src}
-            alt={alt}
-            height={height}
-            width={width}
-            style={{ alignItems: "center" }}
-          />
           <input
             ref={inputRef}
             accept="image/*"
@@ -58,9 +53,7 @@ const ImageInput: React.FC<Props> = (props) => {
           />
           <Button
             disabled={disabled}
-            onClick={() => {
-              inputRef.current?.click();
-            }}
+            onClick={handleClick}
           >
             Upload
           </Button>
