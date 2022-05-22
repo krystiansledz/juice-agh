@@ -5,17 +5,18 @@ import Stack from "@mui/material/Stack";
 type Props = {
   label: string;
   children: any;
+  component?: boolean;
 };
 
 const WithLabel: React.FC<Props> = (props) => {
-  const { label, children } = props;
+  const { label, children, component = false } = props;
 
   return (
-    <Stack spacing={0}>
-      <Typography fontSize="24px" fontWeight="bold" color="primary">
+    <Stack>
+      <Typography fontSize="1.25rem" fontWeight="bold" color="primary">
         {label}
       </Typography>
-      <Typography fontSize="24px">{children}</Typography>
+      {component ? children : <Typography fontSize="1.25rem">{children}</Typography>}
     </Stack>
   );
 };
