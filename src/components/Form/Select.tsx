@@ -11,6 +11,7 @@ import {
 type Props = {
   control: Control<any>;
   name: string;
+  label?: string;
   disabled?: boolean;
   options: { label: string; value: string }[];
 };
@@ -18,15 +19,10 @@ type Props = {
 export type SelectOption = {
   label: string;
   value: string;
-}
+};
 
 const Select: React.FC<Props> = (props) => {
-  const {
-    name,
-    control,
-    disabled = false,
-    options,
-  } = props;
+  const { control, name, label, disabled = false, options } = props;
 
   const { errors } = useFormState({ control });
 
@@ -35,6 +31,7 @@ const Select: React.FC<Props> = (props) => {
       render={({ field, fieldState: { error } }) => (
         <FormControl>
           <MuiSelect
+            label={label}
             disabled={disabled}
             sx={{
               color:
@@ -45,9 +42,9 @@ const Select: React.FC<Props> = (props) => {
             {...field}
           >
             {options.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                </MenuItem>
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
             ))}
           </MuiSelect>
           {error && (

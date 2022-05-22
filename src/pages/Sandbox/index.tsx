@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "../../yup";
 import CheckboxWithLabel from "../../components/Form/CheckboxWithLabel";
 import Select from "../../components/Form/Select";
+import DetailsView from "../Events/details/form";
 
 type InputFields = {
   name: string;
@@ -25,6 +26,13 @@ const schema = yup.object().shape({
 
 type Props = {};
 
+
+const options = [
+  { label: "option 1", value: "1" },
+  { label: "option 2", value: "2" },
+  { label: "option 3", value: "3" },
+];
+
 const SandboxPage: React.FC<Props> = () => {
   const { handleSubmit, control } = useForm<InputFields>({
     resolver: yupResolver(schema),
@@ -37,7 +45,9 @@ const SandboxPage: React.FC<Props> = () => {
   const onSubmit = (data: any) => {
     // TODO: Connect with API
   };
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,12 +65,17 @@ const SandboxPage: React.FC<Props> = () => {
           control={control}
         />
         <button>Submit</button>
-        <Select name={"test1"} control={control}
-          options={[
-            { label: "Test 1", value: "1" },
-            { label: "Test 2", value: "2" },
-            { label: "Test 3", value: "3" },
-          ]}
+        <Select name={"test1"} control={control} label={"test1"}
+          options={options}
+        />
+        <button onClick={handleOpen}>Open modal</button>
+        <DetailsView
+        control={control}
+        name={"name4"}
+          open={open}
+          onClose={handleClose}
+          onSubmit={() => {}}
+          title={""}
         />
       </form>
     </div>
