@@ -6,7 +6,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "../../yup";
 import CheckboxWithLabel from "../../components/Form/CheckboxWithLabel";
 import Select from "../../components/Form/Select";
-import DetailsView from "../Events/details/form";
 
 type InputFields = {
   name: string;
@@ -64,19 +63,12 @@ const SandboxPage: React.FC<Props> = () => {
           label={"test"}
           control={control}
         />
-        <button>Submit</button>
         <Select name={"test1"} control={control} label={"test1"}
           options={options}
         />
-        <button onClick={handleOpen}>Open modal</button>
-        <DetailsView
-        control={control}
-        name={"name4"}
-          open={open}
-          onClose={handleClose}
-          onSubmit={() => {}}
-          title={""}
-        />
+        <button>Submit</button>
+
+
       </form>
     </div>
   );
