@@ -26,7 +26,9 @@ const Select: React.FC<Props> = (props) => {
     <Controller
       render={({ field, fieldState: { error } }) => (
         <FormControl sx={{ minWidth: "12.1875rem" }}>
-          <InputLabel id={labelId}>{label}</InputLabel>
+          <InputLabel id={labelId} error={!!error}>
+            {label}
+          </InputLabel>
           <MuiSelect
             label={label}
             labelId={labelId}
