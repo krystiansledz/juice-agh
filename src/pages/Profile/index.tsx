@@ -11,10 +11,10 @@ import {
 } from "../ChangePassword/form";
 import { Typography } from "@mui/material";
 import { Chip } from "@mui/material";
-import { FieldsColors } from "../../models/block.model";
+import { BlocksEnum, FieldsColors, FieldsEnum } from "../../models/block.model";
 
 type Props = {
-  field?: string;
+  field?: FieldsEnum;
 };
 
 const ProfilePage: React.FC<Props> = (props) => {
@@ -22,7 +22,9 @@ const ProfilePage: React.FC<Props> = (props) => {
     resolver: yupResolver(ChangePasswordSchema),
   });
 
-  const { field = "asda" } = props;
+  const { field = FieldsEnum.ZIELONY } = props;
+
+  const block = BlocksEnum.INFORMATYCZNY;
 
   const onSubmit = (data: any) => {
     // TODO: Connect with API
@@ -51,7 +53,15 @@ const ProfilePage: React.FC<Props> = (props) => {
           <WithLabel label={"Imię"}>Piotr</WithLabel>
           <WithLabel label={"Nazwisko"}>Piotrowski</WithLabel>
           <WithLabel label={"Email"}>piotrek@piotrek.pl</WithLabel>
-          <WithLabel label={"Blok"}>Informatyczny</WithLabel>
+          <WithLabel label={"Blok"}>
+            <Chip
+              label={
+                <Typography noWrap fontSize="0.75rem">
+                  {block}
+                </Typography>
+              }
+            />
+          </WithLabel>
           <WithLabel label={"Nazwa koła"}>KNI Kernel</WithLabel>
           <WithLabel label={"Obszar"} component>
             <Chip
@@ -60,12 +70,10 @@ const ProfilePage: React.FC<Props> = (props) => {
                   {field}
                 </Typography>
               }
-              sx={
-                {
-                  color: "FieldsColors[field].color",
-                  backgroundColor: "FieldsColors[field].backgroundColor",
-                }
-              }
+              sx={{
+                color: FieldsColors[field].color,
+                backgroundColor: FieldsColors[field].backgroundColor,
+              }}
             />
           </WithLabel>
         </Stack>
