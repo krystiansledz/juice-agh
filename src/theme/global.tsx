@@ -5,7 +5,7 @@ const GlobalStyles = () => (
   <MuiGlobalStyles
     styles={{
       body: {
-        overflow: "hidden",
+        overflow: "auto",
       },
       "MuiDrawer-paper": {
         backgroundColor: "red",
