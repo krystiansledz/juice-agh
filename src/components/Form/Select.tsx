@@ -1,11 +1,12 @@
 import React from "react";
-import { Controller, useFormState } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { Control } from "react-hook-form/dist/types/form";
 import {
   Select as MuiSelect,
   FormControl,
   FormHelperText,
   MenuItem,
+  InputLabel,
 } from "@mui/material";
 
 type Props = {
@@ -13,32 +14,24 @@ type Props = {
   name: string;
   label?: string;
   disabled?: boolean;
-  options: { label: string; value: string }[];
-};
-
-export type SelectOption = {
-  label: string;
-  value: string;
+  options: SelectOption[];
 };
 
 const Select: React.FC<Props> = (props) => {
   const { control, name, label, disabled = false, options } = props;
 
-  const { errors } = useFormState({ control });
+  const labelId = `${name}-select-label`;
 
   return (
     <Controller
       render={({ field, fieldState: { error } }) => (
-        <FormControl>
+        <FormControl sx={{ minWidth: "12.1875rem" }}>
+          <InputLabel id={labelId}>{label}</InputLabel>
           <MuiSelect
             label={label}
+            labelId={labelId}
             disabled={disabled}
-            sx={{
-              color:
-                errors && !!errors[name]
-                  ? (theme) => theme.palette.error.main
-                  : "default",
-            }}
+            error={!!error}
             {...field}
           >
             {options.map((option) => (
@@ -59,3 +52,8 @@ const Select: React.FC<Props> = (props) => {
 };
 
 export default Select;
+
+export type SelectOption = {
+  label: string;
+  value: string;
+};
