@@ -30,7 +30,7 @@ const EventList: React.FC<Props> = (props) => {
       rows={rows}
       columns={columns}
       sortingMode={"server"}
-      onSortModelChange={handleSortingChange}
+      onSortModelChange={handleSortingChange} //
       onRowClick={onRowClick}
       disableSelectionOnClick
       disableColumnMenu

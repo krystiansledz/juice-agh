@@ -82,7 +82,7 @@ export const fieldValueGridCellRenderer = (
   );
 };
 
-// field
+// block
 
 export const blockValueGridCellRenderer = (
   params: GridCellParams<EventType["block"], EventType>
