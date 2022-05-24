@@ -8,9 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Auth, { Form } from "../../components/Auth";
 import PasswordInput from "../../components/Form/PasswordInput";
 import Select from "src/components/Form/Select";
-import { BlocksEnum } from "src/models/block.model";
-
-
+import {
+  FieldsSelectOptions,
+  BlocksSelectOptions,
+} from "src/models/block.model";
 
 const RegisterPage: React.FC = () => {
   const { handleSubmit, control } = useForm<RegisterFieldValues>({
@@ -26,19 +27,18 @@ const RegisterPage: React.FC = () => {
       <Auth title={"Rejestracja"} buttonLinks={buttonLinks}>
         <TextInput label={"Email"} name={"email"} control={control} />
         <PasswordInput label={"Hasło"} name={"password"} control={control} />
-        <PasswordInput label={"Powtórz hasło"} name={"passwordConfirm"} control={control} />
-        <Select
-          name="block"
+        <PasswordInput
+          label={"Powtórz hasło"}
+          name={"passwordConfirm"}
           control={control}
-          options={[
-            { label: BlocksEnum.MATEMATYCZNY, value: BlocksEnum.MATEMATYCZNY },
-            { label: BlocksEnum.FIZYCZNY, value: BlocksEnum.FIZYCZNY },
-            { label: BlocksEnum.INFORMATYCZNY, value: BlocksEnum.INFORMATYCZNY },
-          ]}
         />
-
-
-        <TextInput label={"Nazwa koła"} name={"researchGroup"} control={control} />
+        <Select name="field" control={control} options={FieldsSelectOptions} />
+        <Select name="block" control={control} options={BlocksSelectOptions} />
+        <TextInput
+          label={"Nazwa koła"}
+          name={"researchGroup"}
+          control={control}
+        />
         <TextInput label={"Imie"} name={"firstName"} control={control} />
         <TextInput label={"Nazwisko"} name={"lastName"} control={control} />
         <Button type="submit" variant="contained">
