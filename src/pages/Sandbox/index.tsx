@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "../../yup";
 import CheckboxWithLabel from "../../components/Form/CheckboxWithLabel";
-import Select from "../../components/Form/Select";
+import Select, { SelectOption } from "../../components/Form/Select";
 
 type InputFields = {
   name: string;
@@ -24,6 +24,12 @@ const schema = yup.object().shape({
 });
 
 type Props = {};
+
+const options: SelectOption[] = [
+  { label: "option 1", value: "1" },
+  { label: "option 2", value: "2" },
+  { label: "option 3", value: "3" },
+];
 
 const SandboxPage: React.FC<Props> = () => {
   const { handleSubmit, control } = useForm<InputFields>({
@@ -54,14 +60,13 @@ const SandboxPage: React.FC<Props> = () => {
           label={"test"}
           control={control}
         />
-        <button>Submit</button>
-        <Select name={"test1"} control={control}
-          options={[
-            { label: "Test 1", value: "1" },
-            { label: "Test 2", value: "2" },
-            { label: "Test 3", value: "3" },
-          ]}
+        <Select
+          name={"test1"}
+          control={control}
+          label={"test1"}
+          options={options}
         />
+        <button>Submit</button>
       </form>
     </div>
   );
