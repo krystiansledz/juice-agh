@@ -20,6 +20,8 @@ const DatePicker: React.FC<Props> = (props) => {
       render={({ field, fieldState: { error } }) => (
         <MuiDatePicker
           label={label}
+          maxDate={maxDate}
+          minDate={minDate}
           {...field}
           renderInput={(params) => (
             <TextField
