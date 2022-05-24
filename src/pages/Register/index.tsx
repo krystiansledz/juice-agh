@@ -32,13 +32,19 @@ const RegisterPage: React.FC = () => {
           name={"passwordConfirm"}
           control={control}
         />
-        <Select name="field" control={control} options={FieldsSelectOptions} />
-        <Select name="block" control={control} options={BlocksSelectOptions} />
-        <TextInput
-          label={"Nazwa koła"}
-          name={"researchGroup"}
+        <Select
+          label="Obszar"
+          name="field"
           control={control}
+          options={FieldsSelectOptions}
         />
+        <Select
+          label="Blok"
+          name="block"
+          control={control}
+          options={BlocksSelectOptions}
+        />
+        <TextInput label={"Nazwa koła"} name="login" control={control} />
         <TextInput label={"Imie"} name={"firstName"} control={control} />
         <TextInput label={"Nazwisko"} name={"lastName"} control={control} />
         <Button type="submit" variant="contained">

@@ -8,6 +8,7 @@ export type RegisterFieldValues = {
   field: string;
   firstName: string;
   lastName: string;
+  login: string;
 };
 
 export const RegisterSchema = yup.object().shape({
@@ -16,6 +17,7 @@ export const RegisterSchema = yup.object().shape({
   passwordConfirm: yup.string().required(),
   block: yup.string().required(),
   field: yup.string().required(),
+  login: yup.string().required(),
   firstName: yup.string().required(),
   lastName: yup.string().required(),
 });
