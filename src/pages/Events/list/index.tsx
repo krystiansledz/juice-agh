@@ -35,6 +35,9 @@ const EventsPage: React.FC<Props> = () => {
   return (
     <>
       <EventDetail
+        title={
+          "Wydarzenie 1"
+        }
         eventId={eventId as number}
         open={isDetailOpen}
         onClose={handleCloseDetail}
