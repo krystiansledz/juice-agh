@@ -1,5 +1,4 @@
 const AppPaths = {
-  Sandbox: () => `/sandbox`, // for development only
   BaseUrl: () => `/`,
   Login: () => `/login`,
   Register: () => `/register`,

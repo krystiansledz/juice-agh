@@ -6,13 +6,8 @@ import LoginPage from "../pages/Login";
 import RegisterPage from "../pages/Register";
 import ForgotPasswordPage from "../pages/ForgotPassword";
 import ChangePasswordPage from "../pages/ChangePassword";
-import SandboxPage from "../pages/Sandbox";
 
 export const NotAuthenticatedRoutes = [
-  {
-    path: AppPaths.Sandbox(),
-    element: <SandboxPage />,
-  },
   {
     path: AppPaths.Login(),
     element: <LoginPage />,
