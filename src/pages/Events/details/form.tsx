@@ -5,7 +5,7 @@ import {
   DialogTitle,
   Stack,
 } from "@mui/material";
-import { Control, useForm } from "react-hook-form";
+import { Control } from "react-hook-form";
 import TextInput from "src/components/Form/TextInput";
 import { FormMode } from ".";
 
@@ -21,29 +21,7 @@ type Props = {
 };
 
 const EventDetailModal: React.FC<Props> = (props) => {
-  const {
-    control,
-    eventId,
-    formMode,
-    children,
-    open = false,
-    onClose,
-    title,
-    ...rest
-  } = props;
-  const style = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "70%",
-    height: "70%",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    textAlign: "center",
-  };
+  const { control, formMode, onClose, title } = props;
 
   return (
     <>
@@ -116,51 +94,25 @@ const EventDetailModal: React.FC<Props> = (props) => {
             </Stack>
           </Stack>
         </Stack>
-        <DialogActions>
-          <Stack
-            direction="row"
-            sx={{
-              position: "flex-end",
-              display: "flex",
-              bottom: 32,
-              width: "100%",
-            }}
+        <DialogActions
+          sx={{
+            flexDirection: { xs: "column", sm: "row" },
+            gap: { xs: "0.5rem" },
+          }}
+        >
+          <Button color="secondary" variant="contained">
+            Usuń
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ marginLeft: { sm: "auto !important" } }}
           >
-            <Stack
-              direction="row"
-              sx={{
-                display: "flex",
-                flex: 1,
-                justifyContent: "flex-start",
-              }}
-            >
-              <Button type="submit" variant="contained">
-                Usuń
-              </Button>
-            </Stack>
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{
-                display: "flex",
-                flex: 1,
-                justifyContent: "flex-end",
-              }}
-            >
-              <Button type="submit" variant="contained">
-                Edytuj
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                Zamknij
-              </Button>
-            </Stack>
-          </Stack>
+            Edytuj
+          </Button>
+          <Button variant="contained" onClick={onClose}>
+            Zamknij
+          </Button>
         </DialogActions>
       </DialogContent>
     </>
