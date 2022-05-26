@@ -7,11 +7,10 @@ type Props = {
   eventId: number;
   open: boolean;
   onClose: () => void;
-  title: string;
 };
 
 const EventDetail: React.FC<Props> = (props) => {
-  const { title, eventId, open, onClose } = props;
+  const { eventId, open, onClose } = props;
 
   const FORM_MODE = eventId === 0 ? FormMode.CREATE : FormMode.EDIT;
 
@@ -20,7 +19,7 @@ const EventDetail: React.FC<Props> = (props) => {
   return (
     <Dialog open={open} onClose={onClose} maxWidth={"md"} fullWidth={true}>
       <DialogTitle align="center" width="1">
-        {title}
+        Wydarzenie
       </DialogTitle>
       <EditForm
         control={control}

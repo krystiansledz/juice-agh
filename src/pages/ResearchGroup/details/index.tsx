@@ -1,35 +1,27 @@
 import Dialog from "@mui/material/Dialog/Dialog";
 import React from "react";
-import { useForm } from "react-hook-form";
-import { DialogTitle} from "@mui/material";
-import ResearchGroupModal from "./form";
+import { Button, DialogActions, DialogTitle } from "@mui/material";
+import ResearchGroupFields from "./fields";
 type Props = {
-  eventId: number;
+  researchGroupId: number;
   open: boolean;
   onClose: () => void;
-  title: string;
 };
 
 const ResearchGroupDetail: React.FC<Props> = (props) => {
-  const { eventId, title, open, onClose } = props;
-
-  const FORM_MODE = eventId === 0 ? FormMode.CREATE : FormMode.READ;
-
-  const { handleSubmit, control } = useForm({});
+  const { researchGroupId, open, onClose } = props;
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth={"md"} fullWidth={true}>
       <DialogTitle align="center" width="1">
-        {title}
+        Koło naukowe
       </DialogTitle>
-      <ResearchGroupModal
-        control={control}
-        onSubmit={handleSubmit}
-        open={open}
-        onClose={onClose}
-        eventId={eventId}
-        formMode={FORM_MODE}
-      />
+      <ResearchGroupFields researchGroupId={researchGroupId} />
+      <DialogActions>
+        <Button variant="contained" onClick={onClose}>
+          Zamknij
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };
