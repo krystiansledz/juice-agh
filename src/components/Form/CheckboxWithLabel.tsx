@@ -8,16 +8,18 @@ type Props = {
   control: Control<any>;
   name: string;
   label?: string;
+  disabled?: boolean;
 };
 
 const CheckboxWithLabel: React.FC<Props> = (props) => {
-  const { label, control, name } = props;
+  const { label, control, name, disabled } = props;
   const { errors } = useFormState({ control });
 
   return (
     <FormControlLabel
       control={<Checkbox {...props} />}
       label={label}
+      disabled={disabled}
       sx={{
         color:
           errors && !!errors[name]

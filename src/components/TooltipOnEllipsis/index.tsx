@@ -17,7 +17,12 @@ const TooltipOnEllipsis: React.FC<TooltipProps> = (props) => {
   });
 
   return (
-    <Tooltip disableHoverListener={!isEllipsisActive} {...props}>
+    <Tooltip
+      disableHoverListener={!isEllipsisActive}
+      placement="bottom"
+      arrow={true}
+      {...props}
+    >
       <EllipsisDiv ref={elementRef}>{props.children}</EllipsisDiv>
     </Tooltip>
   );
