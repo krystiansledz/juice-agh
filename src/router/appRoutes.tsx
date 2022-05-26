@@ -5,6 +5,7 @@ import ProfilePage from "../pages/Profile";
 import LoginPage from "../pages/Login";
 import RegisterPage from "../pages/Register";
 import ForgotPasswordPage from "../pages/ForgotPassword";
+import ResearchGroupPage from "src/pages/ResearchGroup/list";
 import ChangePasswordPage from "../pages/ChangePassword";
 
 export const NotAuthenticatedRoutes = [
@@ -42,5 +43,9 @@ export const AuthenticatedRoutes = [
   {
     path: "*",
     element: <Navigate to={AppPaths.Events()} replace />,
+  },
+  {
+    path: AppPaths.ResearchGroups(),
+    element: <ResearchGroupPage />,
   },
 ];
