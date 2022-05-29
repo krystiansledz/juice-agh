@@ -39,12 +39,12 @@ const DrawerItems: React.FC<Props> = (props) => {
     {
       text: "Koła",
       icon: <GroupIcon />,
-      path: AppPaths.Events(),
+      path: AppPaths.ResearchGroups(),
     },
     {
       text: "Koła do weryfikacji",
       icon: <GroupAddIcon />,
-      path: AppPaths.Events(),
+      path: AppPaths.ResearchGroups(),
     },
   ];
 
