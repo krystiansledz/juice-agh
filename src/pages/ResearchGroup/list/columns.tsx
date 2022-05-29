@@ -10,7 +10,7 @@ const columns: GridColDef[] = [
     field: "title",
     headerName: "Nazwa koła",
     renderCell: titleValueGridCellRenderer,
-    flex: 5,
+    flex: 3,
   },
   {
     field: "field",

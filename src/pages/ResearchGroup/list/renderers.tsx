@@ -2,9 +2,8 @@ import { GridCellParams } from "@mui/x-data-grid";
 import { ResearchGroupType } from "../../../models/researchGroupDetails.model";
 import TooltipOnEllipsis from "../../../components/TooltipOnEllipsis";
 import { Typography } from "@mui/material";
-import { TooltipProps } from "@mui/material/Tooltip/Tooltip";
-import Chip from "@mui/material/Chip/Chip";
-import { FieldsColors } from "../../../models/block.model";
+import BlockChip from "../../../components/BlockChip";
+import FieldChip from "../../../components/FieldChip";
 
 // title
 
@@ -12,10 +11,7 @@ export const titleValueGridCellRenderer = (
   params: GridCellParams<ResearchGroupType["title"], ResearchGroupType>
 ) => {
   return (
-    <TooltipOnEllipsis
-      title={params.value ?? ""}
-      {...sharedTooltipOnEllipsisProps}
-    >
+    <TooltipOnEllipsis title={params.value ?? ""}>
       <Typography noWrap fontSize={16}>
         {params.value}
       </Typography>
@@ -31,21 +27,7 @@ export const fieldValueGridCellRenderer = (
   const field = params.value;
   if (!field) return "-";
 
-  return (
-    <Chip
-      label={
-        <TooltipOnEllipsis title={capitalizeString(field)}>
-          <Typography noWrap fontSize={12}>
-            {field}
-          </Typography>
-        </TooltipOnEllipsis>
-      }
-      sx={{
-        color: FieldsColors[field].color,
-        backgroundColor: FieldsColors[field].backgroundColor,
-      }}
-    />
-  );
+  return <FieldChip field={field} />;
 };
 
 // block
@@ -56,27 +38,5 @@ export const blockValueGridCellRenderer = (
   const block = params.value;
   if (!block) return "-";
 
-  return (
-    <Chip
-      label={
-        <TooltipOnEllipsis title={capitalizeString(block)}>
-          <Typography noWrap fontSize={12}>
-            {block}
-          </Typography>
-        </TooltipOnEllipsis>
-      }
-    />
-  );
-};
-
-//
-
-const sharedTooltipOnEllipsisProps: Pick<TooltipProps, "placement" | "arrow"> =
-  {
-    placement: "bottom",
-    arrow: true,
-  };
-
-const capitalizeString = (str: string): string => {
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  return <BlockChip block={block} />;
 };
