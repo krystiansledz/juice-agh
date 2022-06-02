@@ -21,3 +21,14 @@ export const RegisterSchema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
 });
+
+export const formDefaultValues = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  block: "",
+  field: "",
+  firstName: "",
+  lastName: "",
+  login: "",
+};

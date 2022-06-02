@@ -3,6 +3,8 @@ import React from "react";
 import EditForm from "./form";
 import { useForm } from "react-hook-form";
 import { DialogTitle } from "@mui/material";
+import { useEvent } from "../api";
+
 type Props = {
   eventId: number;
   open: boolean;
@@ -12,6 +14,8 @@ type Props = {
 const EventDetail: React.FC<Props> = (props) => {
   const { eventId, open, onClose } = props;
 
+  const event = useEvent(eventId);
+
   const FORM_MODE = eventId === 0 ? FormMode.CREATE : FormMode.EDIT;
 
   const { handleSubmit, control } = useForm({});
@@ -19,15 +23,14 @@ const EventDetail: React.FC<Props> = (props) => {
   return (
     <Dialog open={open} onClose={onClose} maxWidth={"md"} fullWidth={true}>
       <DialogTitle align="center" width="1">
-        Wydarzenie
+        Wydarzenie {event.data?.title}
       </DialogTitle>
       <EditForm
         control={control}
         onSubmit={handleSubmit}
-        open={true}
         onClose={onClose}
-        eventId={eventId}
         formMode={FORM_MODE}
+        event={event.data}
       />
     </Dialog>
   );

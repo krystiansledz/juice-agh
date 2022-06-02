@@ -6,10 +6,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/system/Box";
 import { useNavigate } from "react-router-dom";
 import AppPaths from "../../../router/appPaths";
+import { useLogout } from "../../../auth/provider";
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+  const logout = useLogout();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -40,7 +42,7 @@ const UserMenu = () => {
         <MenuItem
           onClick={() => {
             handleClose();
-            navigate(AppPaths.Login());
+            logout();
           }}
         >
           Wyloguj się

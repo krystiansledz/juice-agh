@@ -1,7 +1,6 @@
 import { DataGrid as MuiDataGrid, DataGridProps } from "@mui/x-data-grid";
 import React from "react";
 import styled from "styled-components";
-import { appColors } from "../../theme/defaults";
 
 const DataGrid: React.FC<DataGridProps> = (props) => {
   return <StyledDataGrid {...props} />;
@@ -19,8 +18,7 @@ const StyledDataGrid = styled(MuiDataGrid)`
   }
 
   .MuiDataGrid-columnHeaders {
-    background-color: ${appColors.black};
-    color: ${appColors.white};
+    background-color: ${(props) => props.theme.palette.opaque[200]};
   }
 
   .MuiDataGrid-columnSeparator {

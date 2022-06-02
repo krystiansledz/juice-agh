@@ -2,11 +2,7 @@ import React from "react";
 import { Navigate, RouteProps, useLocation } from "react-router";
 import AppPaths from "../appPaths";
 import Layout from "../../pages/Layout";
-
-// TODO: Move to login api
-const useIsAuthenticated = () => {
-  return true;
-};
+import { useIsAuthenticated } from "../../auth/provider";
 
 interface Props extends RouteProps {
   children: JSX.Element;

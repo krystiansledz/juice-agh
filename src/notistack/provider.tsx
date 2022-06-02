@@ -16,6 +16,7 @@ const NotistackProvider: React.FC<Props> = (props) => {
         vertical: "top",
         horizontal: "right",
       }}
+      autoHideDuration={3000}
       TransitionComponent={Grow as React.ComponentType}
       preventDuplicate
     >

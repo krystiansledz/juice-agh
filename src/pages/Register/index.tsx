@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import TextInput from "../../components/Form/TextInput";
 import AppPaths from "../../router/appPaths";
-import { RegisterFieldValues, RegisterSchema } from "./form";
+import { formDefaultValues, RegisterFieldValues, RegisterSchema } from "./form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Auth, { Form } from "../../components/Auth";
@@ -12,13 +12,29 @@ import {
   FieldsSelectOptions,
   BlocksSelectOptions,
 } from "src/models/block.model";
+import { register } from "../../auth/api";
+import { useSnackbar } from "notistack";
 
 const RegisterPage: React.FC = () => {
   const { handleSubmit, control } = useForm<RegisterFieldValues>({
     resolver: yupResolver(RegisterSchema),
+    defaultValues: formDefaultValues,
   });
+  const { enqueueSnackbar } = useSnackbar();
 
-  const onSubmit = (data: RegisterFieldValues) => {};
+  const onSubmit = (data: RegisterFieldValues) => {
+    register(data)
+      .then((response) => {
+        enqueueSnackbar("Zarejestrowano pomyślnie", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        enqueueSnackbar(error?.response?.data?.detail, {
+          variant: "error",
+        });
+      });
+  };
 
   const buttonLinks = [{ to: AppPaths.Login(), text: "Zaloguj się" }];
 

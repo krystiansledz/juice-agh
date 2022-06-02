@@ -2,17 +2,37 @@ import React from "react";
 import { Button } from "@mui/material";
 import TextInput from "../../components/Form/TextInput";
 import AppPaths from "../../router/appPaths";
-import { ForgotPasswordFieldValues, ForgotPasswordSchema } from "./form";
+import {
+  ForgotPasswordFieldValues,
+  ForgotPasswordSchema,
+  formDefaultValues,
+} from "./form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Auth, { Form } from "../../components/Auth";
+import { initResetPassword } from "../../auth/api";
+import { useSnackbar } from "notistack";
 
 const ForgotPasswordPage: React.FC = () => {
   const { handleSubmit, control } = useForm<ForgotPasswordFieldValues>({
     resolver: yupResolver(ForgotPasswordSchema),
+    defaultValues: formDefaultValues,
   });
+  const { enqueueSnackbar } = useSnackbar();
 
-  const onSubmit = (data: ForgotPasswordFieldValues) => {};
+  const onSubmit = (data: ForgotPasswordFieldValues) => {
+    initResetPassword(data)
+      .then((r) => {
+        enqueueSnackbar("Wysłano link do resetowania hasła", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        enqueueSnackbar(error.response.data.detail, {
+          variant: "error",
+        });
+      });
+  };
 
   const buttonLinks = [{ to: AppPaths.Login(), text: "Zaloguj się" }];
 

@@ -1,26 +1,29 @@
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
-} from "@mui/material";
+import { Button, DialogActions, DialogContent, Stack } from "@mui/material";
 import { Control } from "react-hook-form";
 import TextInput from "src/components/Form/TextInput";
 import { FormMode } from ".";
+import React from "react";
+import {
+  useIsAdmin,
+  useIsAuthenticated,
+  useIsOwner,
+} from "../../../auth/provider";
+import { EventType } from "../../../models/calendarEvent.model";
 
 type Props = {
+  event: EventType | undefined;
   control: Control<any>;
-  open?: boolean;
   onClose: () => void;
   onSubmit: (values: any) => void;
-  eventId: number;
   formMode: FormMode;
-  children?: any;
 };
 
 const EventDetailModal: React.FC<Props> = (props) => {
-  const { control, formMode, onClose } = props;
+  const { control, formMode, onClose, event } = props;
+
+  const isAdmin = useIsAdmin();
+  const isOwner = useIsOwner(event?.user.id);
+  const isAuthenticated = useIsAuthenticated();
 
   return (
     <>
@@ -81,16 +84,31 @@ const EventDetailModal: React.FC<Props> = (props) => {
             gap: { xs: "0.5rem" },
           }}
         >
-          <Button color="secondary" variant="contained">
-            Usuń
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ marginLeft: { sm: "auto !important" } }}
-          >
-            Edytuj
-          </Button>
+          {(isOwner || isAdmin) && (
+            <>
+              <Button color="secondary" variant="contained">
+                Usuń
+              </Button>
+              {formMode === FormMode.EDIT && (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ marginLeft: { sm: "auto !important" } }}
+                >
+                  Edytuj
+                </Button>
+              )}
+            </>
+          )}
+          {isAuthenticated && formMode === FormMode.CREATE && (
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ marginLeft: { sm: "auto !important" } }}
+            >
+              Dodaj
+            </Button>
+          )}
           <Button variant="contained" onClick={onClose}>
             Zamknij
           </Button>
