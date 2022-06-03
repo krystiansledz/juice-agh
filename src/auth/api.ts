@@ -3,10 +3,8 @@ import { LoginFieldValues } from "../pages/Login/form";
 import { RegisterFieldValues } from "../pages/Register/form";
 import { ForgotPasswordFieldValues } from "../pages/ForgotPassword/form";
 
-export const me = (token: string) =>
-  axios.get(`${process.env.REACT_APP_API_HOST}/api/account`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+export const me = () =>
+  axios.get(`${process.env.REACT_APP_API_HOST}/api/account`);
 
 export const loginUser = (data: LoginFieldValues) =>
   axios.post(`${process.env.REACT_APP_API_HOST}/api/authenticate`, {

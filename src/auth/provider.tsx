@@ -7,6 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 import { useNavigate } from "react-router-dom";
 import AppPaths from "../router/appPaths";
+import axios from "axios";
 
 type Props = {
   children: JSX.Element;
@@ -59,7 +60,9 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      me(token)
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      me()
         .then((response) => {
           setUser(response.data);
         })
@@ -72,6 +75,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         });
     } else {
       setUser(null);
+      delete axios.defaults.headers.common["Authorization"];
     }
   }, [token]);
 
