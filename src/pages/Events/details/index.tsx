@@ -23,7 +23,7 @@ const EventDetail: React.FC<Props> = (props) => {
   return (
     <Dialog open={open} onClose={onClose} maxWidth={"md"} fullWidth={true}>
       <DialogTitle align="center" width="1">
-        Wydarzenie {event.data?.title}
+        Wydarzenie
       </DialogTitle>
       <EditForm
         control={control}

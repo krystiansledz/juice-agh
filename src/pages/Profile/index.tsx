@@ -1,34 +1,21 @@
-import { Button } from "@mui/material";
 import React from "react";
-import PasswordInput from "src/components/Form/PasswordInput";
 import Stack from "@mui/material/Stack";
 import WithLabel from "src/components/Form/WithLabel";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import {
-  ChangePasswordFieldValues,
-  ChangePasswordSchema,
-} from "../ChangePassword/form";
 import { Typography } from "@mui/material";
 import { Chip } from "@mui/material";
 import { BlocksEnum, FieldsColors, FieldsEnum } from "../../models/block.model";
+import { AuthContext } from "../../auth/provider";
+import PasswordForm from "./form";
 
 type Props = {
   field?: FieldsEnum;
 };
 
 const ProfilePage: React.FC<Props> = (props) => {
-  const { handleSubmit, control } = useForm<ChangePasswordFieldValues>({
-    resolver: yupResolver(ChangePasswordSchema),
-  });
-
   const { field = FieldsEnum.ZIELONY } = props;
+  const [user] = React.useContext(AuthContext);
 
   const block = BlocksEnum.INFORMATYCZNY;
-
-  const onSubmit = (data: any) => {
-    // TODO: Connect with API
-  };
 
   return (
     <Stack>
@@ -50,9 +37,9 @@ const ProfilePage: React.FC<Props> = (props) => {
             width: { xs: "50%", md: "15%" },
           }}
         >
-          <WithLabel label={"Imię"}>Piotr</WithLabel>
-          <WithLabel label={"Nazwisko"}>Piotrowski</WithLabel>
-          <WithLabel label={"Email"}>piotrek@piotrek.pl</WithLabel>
+          <WithLabel label={"Imię"}>{user?.firstName}</WithLabel>
+          <WithLabel label={"Nazwisko"}>{user?.lastName}</WithLabel>
+          <WithLabel label={"Email"}>{user?.email}</WithLabel>
           <WithLabel label={"Blok"}>
             <Chip
               label={
@@ -62,7 +49,7 @@ const ProfilePage: React.FC<Props> = (props) => {
               }
             />
           </WithLabel>
-          <WithLabel label={"Nazwa koła"}>KNI Kernel</WithLabel>
+          <WithLabel label={"Nazwa koła"}>{user?.login}</WithLabel>
           <WithLabel label={"Obszar"} component>
             <Chip
               label={
@@ -77,30 +64,7 @@ const ProfilePage: React.FC<Props> = (props) => {
             />
           </WithLabel>
         </Stack>
-
-        <Stack
-          sx={{
-            width: { xs: "50%", md: "15%" },
-          }}
-          spacing={2}
-          marginTop="2rem"
-          marginBottom="2rem"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <PasswordInput
-            label={"Hasło"}
-            name={"newPassword"}
-            control={control}
-          />
-          <PasswordInput
-            label={"Powtórz hasło"}
-            name={"confirmPassword"}
-            control={control}
-          />
-          <Button type="submit" variant="contained">
-            Zmień hasło
-          </Button>
-        </Stack>
+        <PasswordForm />
       </Stack>
     </Stack>
   );

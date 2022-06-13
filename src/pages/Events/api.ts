@@ -1,6 +1,7 @@
 import { EventType } from "../../models/calendarEvent.model";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { RQUERY_NOREFETCH_OPTIONS } from "../../rquery";
 
 const fetchEvent = (id: number): Promise<EventType> => {
   return axios
@@ -9,7 +10,11 @@ const fetchEvent = (id: number): Promise<EventType> => {
 };
 
 export const useEvent = (id: number) => {
-  return useQuery(`event-${id}`, () => fetchEvent(id));
+  return useQuery(
+    `event-${id}`,
+    () => fetchEvent(id),
+    RQUERY_NOREFETCH_OPTIONS
+  );
 };
 
 const fetchEvents = (): Promise<EventType[]> => {
@@ -19,5 +24,5 @@ const fetchEvents = (): Promise<EventType[]> => {
 };
 
 export const useEvents = () => {
-  return useQuery(`events`, () => fetchEvents());
+  return useQuery(`events`, () => fetchEvents(), RQUERY_NOREFETCH_OPTIONS);
 };
