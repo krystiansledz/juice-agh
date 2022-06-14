@@ -1,17 +1,14 @@
-import { BaseUserType } from "./user.model";
-import { BlocksEnum, FieldsEnum } from "./block.model";
+import { UserType } from "./user.model";
 
 export interface EventType {
   id: number;
   title: string;
   startDate: string;
   endDate?: string | null;
-  publicationDate?: string | null;
-  description?: string | null;
-  link?: string | null;
+  publicationDate?: string;
+  description?: string;
+  link?: string;
   imageUrl?: string | null;
   status?: string | null;
-  user: BaseUserType;
-  field: FieldsEnum;
-  block: BlocksEnum;
+  extraUser: UserType | null;
 }

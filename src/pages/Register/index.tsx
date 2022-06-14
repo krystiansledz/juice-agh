@@ -2,7 +2,11 @@ import React from "react";
 import { Button } from "@mui/material";
 import TextInput from "../../components/Form/TextInput";
 import AppPaths from "../../router/appPaths";
-import { formDefaultValues, RegisterFieldValues, RegisterSchema } from "./form";
+import {
+  formDefaultValues,
+  RegisterFieldValues,
+  RegisterSchema,
+} from "./schema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Auth, { Form } from "../../components/Auth";

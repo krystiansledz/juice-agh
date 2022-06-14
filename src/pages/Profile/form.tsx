@@ -1,28 +1,16 @@
 import PasswordInput from "../../components/Form/PasswordInput";
-import { Button, Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { changePassword } from "./api";
-
-import yup from "../../yup";
 import { useSnackbar } from "notistack";
-
-export type ChangePasswordFieldValues = {
-  currentPassword: string;
-  newPassword: string;
-};
-
-const ChangePasswordSchema = yup.object().shape({
-  currentPassword: yup.string().required(),
-  newPassword: yup.string().required(),
-});
-
-export const formDefaultValues = {
-  currentPassword: "",
-  newPassword: "",
-};
+import {
+  ChangePasswordFieldValues,
+  ChangePasswordSchema,
+  formDefaultValues,
+} from "./schema";
 
 const PasswordForm = () => {
   const { handleSubmit, control, reset } = useForm<ChangePasswordFieldValues>({

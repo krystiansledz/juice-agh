@@ -53,9 +53,9 @@ export const descriptionValueGridCellRenderer = (
 // field
 
 export const fieldValueGridCellRenderer = (
-  params: GridCellParams<EventType["field"], EventType>
+  params: GridCellParams<EventType["extraUser"], EventType>
 ) => {
-  const field = params.value;
+  const field = params.row.extraUser?.field;
   if (!field) return "-";
 
   return <FieldChip field={field} />;
@@ -64,9 +64,9 @@ export const fieldValueGridCellRenderer = (
 // block
 
 export const blockValueGridCellRenderer = (
-  params: GridCellParams<EventType["block"], EventType>
+  params: GridCellParams<EventType["extraUser"], EventType>
 ) => {
-  const block = params.value;
+  const block = params.row.extraUser?.block;
   if (!block) return "-";
 
   return <BlockChip block={block} />;

@@ -22,6 +22,7 @@ const DateTimePicker: React.FC<Props> = (props) => {
           label={label}
           maxDate={maxDate}
           minDate={minDate}
+          mask="__.__.____ __:__"
           {...field}
           renderInput={(params) => (
             <TextField

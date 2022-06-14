@@ -1,7 +1,7 @@
 import axios from "axios";
-import { LoginFieldValues } from "../pages/Login/form";
-import { RegisterFieldValues } from "../pages/Register/form";
-import { ForgotPasswordFieldValues } from "../pages/ForgotPassword/form";
+import { LoginFieldValues } from "../pages/Login/schema";
+import { RegisterFieldValues } from "../pages/Register/schema";
+import { ForgotPasswordFieldValues } from "../pages/ForgotPassword/schema";
 
 export const me = () =>
   axios.get(`${process.env.REACT_APP_API_HOST}/api/account`);

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ChangePasswordFieldValues } from "./form";
+import { ChangePasswordFieldValues } from "./schema";
 
 export const changePassword = (data: ChangePasswordFieldValues) =>
   axios.post(

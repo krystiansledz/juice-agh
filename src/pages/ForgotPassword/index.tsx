@@ -6,7 +6,7 @@ import {
   ForgotPasswordFieldValues,
   ForgotPasswordSchema,
   formDefaultValues,
-} from "./form";
+} from "./schema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Auth, { Form } from "../../components/Auth";

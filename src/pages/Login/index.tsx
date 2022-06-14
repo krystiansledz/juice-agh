@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { formDefaultValues, LoginFieldValues, LoginSchema } from "./form";
+import { formDefaultValues, LoginFieldValues, LoginSchema } from "./schema";
 import TextInput from "../../components/Form/TextInput";
 import AppPaths from "../../router/appPaths";
 import PasswordInput from "../../components/Form/PasswordInput";

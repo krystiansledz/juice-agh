@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react";
+import React, { useState, MouseEvent, useEffect } from "react";
 import EventList from "./list";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
@@ -7,12 +7,21 @@ import EventDetail from "../details";
 import { GridRowParams } from "@mui/x-data-grid";
 import { EventType } from "../../../models/calendarEvent.model";
 import { useIsActive } from "../../../auth/provider";
+import { useEvents } from "../api";
 
 const EventsPage: React.FC = () => {
   const [eventId, setEventId] = useState<number>();
 
+  const events = useEvents();
+
   const isDetailOpen = eventId !== undefined;
   const isActive = useIsActive();
+
+  useEffect(() => {
+    if (!isDetailOpen) {
+      events.refetch();
+    }
+  }, [isDetailOpen]);
 
   const handleOpenDetail = (id: number) => {
     setEventId(id);
@@ -52,7 +61,11 @@ const EventsPage: React.FC = () => {
             </Button>
           )}
         </ListHeader>
-        <EventList onRowClick={handleRowClick} />
+        <EventList
+          onRowClick={handleRowClick}
+          events={events.data}
+          isLoading={events.isLoading}
+        />
       </ListContainer>
     </>
   );

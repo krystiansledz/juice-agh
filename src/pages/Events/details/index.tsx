@@ -1,9 +1,8 @@
 import Dialog from "@mui/material/Dialog/Dialog";
 import React from "react";
-import EditForm from "./form";
-import { useForm } from "react-hook-form";
 import { DialogTitle } from "@mui/material";
-import { useEvent } from "../api";
+import AddForm from "./add";
+import EditOrPreviewForm from "./editOrPreview";
 
 type Props = {
   eventId: number;
@@ -14,24 +13,19 @@ type Props = {
 const EventDetail: React.FC<Props> = (props) => {
   const { eventId, open, onClose } = props;
 
-  const event = useEvent(eventId);
-
-  const FORM_MODE = eventId === 0 ? FormMode.CREATE : FormMode.EDIT;
-
-  const { handleSubmit, control } = useForm({});
+  const FORM_MODE = eventId === 0 ? FormMode.CREATE : undefined;
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth={"md"} fullWidth={true}>
       <DialogTitle align="center" width="1">
         Wydarzenie
       </DialogTitle>
-      <EditForm
-        control={control}
-        onSubmit={handleSubmit}
-        onClose={onClose}
-        formMode={FORM_MODE}
-        event={event.data}
-      />
+      <>
+        {FORM_MODE === FormMode.CREATE && <AddForm onClose={onClose} />}
+        {FORM_MODE === undefined && (
+          <EditOrPreviewForm onClose={onClose} eventId={eventId} />
+        )}
+      </>
     </Dialog>
   );
 };
