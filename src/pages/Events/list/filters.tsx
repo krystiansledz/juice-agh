@@ -21,7 +21,7 @@ const EventFilters: React.FC<Props> = (props) => {
   return (
     <TextField
       type="text"
-      label="Szukaj..."
+      label="Szukaj po Tytuł, Koło, Opis"
       value={searchParams.get("search") || ""}
       onChange={handleChange}
       InputProps={{

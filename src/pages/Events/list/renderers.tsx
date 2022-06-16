@@ -7,6 +7,7 @@ import { Typography } from "@mui/material";
 import FieldChip from "../../../components/FieldChip";
 import BlockChip from "../../../components/BlockChip";
 import Link from "@mui/material/Link";
+import { BlocksEnum, FieldsEnum } from "../../../models/block.model";
 
 // title
 
@@ -61,9 +62,9 @@ export const linkValueGridCellRenderer = (
 // research group
 
 export const researchGroupValueGridCellRenderer = (
-  params: GridCellParams<EventType["extraUser"], EventType>
+  params: GridCellParams<string, EventType>
 ) => {
-  const value = params.row.extraUser?.user?.login;
+  const value = params.value;
   if (!value) return "-";
 
   return (
@@ -78,9 +79,9 @@ export const researchGroupValueGridCellRenderer = (
 // field
 
 export const fieldValueGridCellRenderer = (
-  params: GridCellParams<EventType["extraUser"], EventType>
+  params: GridCellParams<FieldsEnum, EventType>
 ) => {
-  const field = params.row.extraUser?.field;
+  const field = params.value;
   if (!field) return "-";
 
   return <FieldChip field={field} />;
@@ -89,9 +90,9 @@ export const fieldValueGridCellRenderer = (
 // block
 
 export const blockValueGridCellRenderer = (
-  params: GridCellParams<EventType["extraUser"], EventType>
+  params: GridCellParams<BlocksEnum, EventType>
 ) => {
-  const block = params.row.extraUser?.block;
+  const block = params.value;
   if (!block) return "-";
 
   return <BlockChip block={block} />;

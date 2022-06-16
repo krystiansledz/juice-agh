@@ -1,19 +1,18 @@
 import { BlocksEnum, FieldsEnum } from "./block.model";
 
 export interface BaseUserType {
-  id?: number;
-  login?: string;
+  id: number;
+  login: string;
   firstName?: string;
   lastName?: string;
-  email?: string;
-  activated?: boolean;
+  email: string;
+  activated: boolean;
   langKey?: string;
-  authorities?: string[];
+  authorities: string[];
   createdBy?: string;
   createdDate?: Date | null;
   lastModifiedBy?: string;
   lastModifiedDate?: Date | null;
-  password?: string;
 }
 
 export const baseUserDefaultValue: Readonly<BaseUserType> = {
@@ -29,14 +28,11 @@ export const baseUserDefaultValue: Readonly<BaseUserType> = {
   createdDate: null,
   lastModifiedBy: "",
   lastModifiedDate: null,
-  password: "",
 };
 
 export interface UserType {
-  id?: number;
+  id: number;
   block?: BlocksEnum | null;
   field?: FieldsEnum | null;
-  user?: BaseUserType | null;
+  user: BaseUserType;
 }
-
-export const userDefaultValue: Readonly<UserType> = {};

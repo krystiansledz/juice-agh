@@ -46,7 +46,7 @@ const DrawerItems: React.FC<Props> = (props) => {
     {
       text: "Koła do weryfikacji",
       icon: <GroupAddIcon />,
-      path: `${AppPaths.ResearchGroups(true)}?toVerification=true`,
+      path: `${AppPaths.ResearchGroups(true)}?toActivation=true`,
       hide: !isAdmin,
     },
   ];

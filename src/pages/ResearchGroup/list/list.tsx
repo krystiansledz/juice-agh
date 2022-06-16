@@ -1,13 +1,15 @@
-import React, { useState, MouseEvent } from "react";
+import React, { useState, MouseEvent, useEffect } from "react";
 import { ResearchGroupType } from "../../../models/researchGroupDetails.model";
-import { baseUserDefaultValue, UserType } from "../../../models/user.model";
-import columns from "./columns";
-import { BlocksEnum, FieldsEnum } from "../../../models/block.model";
-import { GridCallbackDetails, GridSortModel } from "@mui/x-data-grid";
+import { UserType } from "../../../models/user.model";
+import { GridCellParams } from "@mui/x-data-grid";
 import DataGrid from "../../../components/DataGrid";
 import { GridRowParams } from "@mui/x-data-grid";
+import { useSearchParams } from "react-router-dom";
+import useColumns from "./columns";
 
 type Props = {
+  users: UserType[] | undefined;
+  isLoading: boolean;
   onRowClick: (
     props: GridRowParams<ResearchGroupType>,
     event: MouseEvent<HTMLElement>
@@ -15,51 +17,44 @@ type Props = {
 };
 
 const GroupList: React.FC<Props> = (props) => {
-  const { onRowClick } = props;
-  const [sortingModel, setSortingModel] = useState<GridSortModel>([]); // for rquery
+  const { onRowClick, users, isLoading } = props;
+  const columns = useColumns();
+  const [filteredUsers, setFilteredUsers] = useState<UserType[]>(users || []);
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search");
+  const toActivation = searchParams.get("toActivation") === "true";
 
-  const handleSortingChange = (
-    model: GridSortModel,
-    callback: GridCallbackDetails
+  useEffect(() => {
+    if (users) {
+      setFilteredUsers(
+        users
+          .filter(
+            (extraUser) => !search || extraUser.user?.login?.includes(search)
+          )
+          .filter((extraUser) => !toActivation || !extraUser.user.activated)
+      );
+    }
+  }, [users, searchParams]);
+
+  const handleCellClick = (
+    param: GridCellParams,
+    event: React.MouseEvent<HTMLElement>
   ) => {
-    setSortingModel(model);
+    param.field === "link" && event.stopPropagation();
   };
 
   return (
     <DataGrid
-      rows={rows}
+      loading={isLoading}
+      rows={filteredUsers}
       columns={columns}
-      sortingMode={"server"}
-      onSortModelChange={handleSortingChange} //
       onRowClick={onRowClick}
       disableSelectionOnClick
       disableColumnMenu
+      hideFooterPagination={true}
+      onCellClick={handleCellClick}
     />
   );
 };
 
 export default GroupList;
-
-const rows: (ResearchGroupType & UserType)[] = [
-  {
-    id: 1,
-    title: "kolo 1",
-    user: baseUserDefaultValue,
-    field: FieldsEnum.CZERWONY,
-    block: BlocksEnum.INFORMATYCZNY,
-  },
-  {
-    id: 2,
-    title: "kolo 2",
-    user: baseUserDefaultValue,
-    field: FieldsEnum.ZIELONY,
-    block: BlocksEnum.MATEMATYCZNY,
-  },
-  {
-    id: 3,
-    title: "kolo 3",
-    user: baseUserDefaultValue,
-    field: FieldsEnum.CZARNY,
-    block: BlocksEnum.FIZYCZNY,
-  },
-];

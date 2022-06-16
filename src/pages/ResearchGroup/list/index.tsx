@@ -5,11 +5,14 @@ import GroupFilters from "./filters";
 import { GridRowParams } from "@mui/x-data-grid";
 import { ResearchGroupType } from "../../../models/researchGroupDetails.model";
 import ResearchGroupDetail from "../details";
+import { useUsers } from "../api";
 
 type Props = {};
 
 const ResearchGroupPage: React.FC<Props> = () => {
   const [researchGroupId, setResearchGroupId] = useState<number>();
+
+  const users = useUsers();
 
   const isDetailOpen = researchGroupId !== undefined;
 
@@ -41,7 +44,11 @@ const ResearchGroupPage: React.FC<Props> = () => {
         <ListHeader>
           <GroupFilters />
         </ListHeader>
-        <GroupList onRowClick={handleRowClick} />
+        <GroupList
+          users={users.data}
+          isLoading={users.isLoading}
+          onRowClick={handleRowClick}
+        />
       </ListContainer>
     </>
   );

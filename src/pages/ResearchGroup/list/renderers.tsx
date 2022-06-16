@@ -4,6 +4,8 @@ import TooltipOnEllipsis from "../../../components/TooltipOnEllipsis";
 import { Typography } from "@mui/material";
 import BlockChip from "../../../components/BlockChip";
 import FieldChip from "../../../components/FieldChip";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 // title
 
@@ -39,4 +41,18 @@ export const blockValueGridCellRenderer = (
   if (!block) return "-";
 
   return <BlockChip block={block} />;
+};
+
+// active
+
+export const activeValueGridCellRenderer = (
+  params: GridCellParams<boolean, ResearchGroupType>
+) => {
+  const isActive = params.value;
+
+  return isActive ? (
+    <CheckCircleIcon color="success" />
+  ) : (
+    <CancelIcon color="error" />
+  );
 };

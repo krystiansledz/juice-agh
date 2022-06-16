@@ -32,18 +32,21 @@ const columns: GridColDef[] = [
     field: "researchGroup",
     headerName: "Koło",
     renderCell: researchGroupValueGridCellRenderer,
+    valueGetter: (params) => params.row.extraUser.user?.login,
     flex: 1,
   },
   {
     field: "field",
     headerName: "Obszar",
     renderCell: fieldValueGridCellRenderer,
+    valueGetter: (params) => params.row.extraUser.field,
     flex: 1,
   },
   {
     field: "block",
     headerName: "Blok",
     renderCell: blockValueGridCellRenderer,
+    valueGetter: (params) => params.row.extraUser.block,
     flex: 1,
   },
 ];
