@@ -1,4 +1,4 @@
-import { UserType } from "../../models/user.model";
+import { BaseUserType, UserType } from "../../models/user.model";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { RQUERY_NOREFETCH_OPTIONS } from "../../rquery";
@@ -21,4 +21,10 @@ const fetchUsers = (): Promise<UserType[]> => {
 
 export const useUsers = () => {
   return useQuery(`events`, () => fetchUsers(), RQUERY_NOREFETCH_OPTIONS);
+};
+
+export const putUser = (data: BaseUserType) => {
+  return axios
+    .put(`${process.env.REACT_APP_API_HOST}/api/admin/users`, data)
+    .then((response) => response.data);
 };

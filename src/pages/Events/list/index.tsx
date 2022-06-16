@@ -9,6 +9,7 @@ import { EventType } from "../../../models/calendarEvent.model";
 import { useIsActive, useIsAdmin } from "../../../auth/provider";
 import { useEvents } from "../api";
 import Filters from "./filters";
+import { Stack } from "@mui/material";
 
 const EventsPage: React.FC = () => {
   const [eventId, setEventId] = useState<number>();
@@ -51,7 +52,15 @@ const EventsPage: React.FC = () => {
         />
       )}
       <ListContainer>
-        <ListHeader>
+        <ListHeader
+          sx={{
+            gap: "1rem",
+            flexDirection: {
+              xs: "column",
+              md: "row",
+            },
+          }}
+        >
           <Filters />
           {isActive && !isAdmin && (
             <Button
@@ -82,7 +91,7 @@ const ListContainer = styled.div`
   height: calc(100vh - 64px);
 `;
 
-const ListHeader = styled.div`
+const ListHeader = styled(Stack)`
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;

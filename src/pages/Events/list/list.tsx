@@ -24,6 +24,7 @@ const EventList: React.FC<Props> = (props) => {
   );
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search");
+  const researchGroup = searchParams.get("researchGroup");
   const myEvents = searchParams.get("myEvents") === "true";
   const isAdmin = useIsAdmin();
   const [user] = React.useContext(AuthContext);
@@ -33,11 +34,16 @@ const EventList: React.FC<Props> = (props) => {
       setFilteredEvents(
         events
           .filter(
+            (event) => !!event.extraUser // filter events without user (admin created event)
+          )
+          .filter((event) => event.extraUser?.user.activated)
+          .filter(
             (event) =>
-              isAdmin || myEvents || !isFuture(new Date(event.publicationDate))
+              !researchGroup || event.extraUser?.user.login === researchGroup
           )
           .filter(
-            (event) => !!event.extraUser // filter events without user (admin created event)
+            (event) =>
+              isAdmin || myEvents || !isFuture(new Date(event.publicationDate))
           )
           .filter(
             (event) =>

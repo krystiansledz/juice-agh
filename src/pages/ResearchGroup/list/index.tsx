@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react";
+import React, { useState, MouseEvent, useEffect } from "react";
 import GroupList from "./list";
 import styled from "styled-components";
 import GroupFilters from "./filters";
@@ -11,10 +11,15 @@ type Props = {};
 
 const ResearchGroupPage: React.FC<Props> = () => {
   const [researchGroupId, setResearchGroupId] = useState<number>();
+  const isDetailOpen = researchGroupId !== undefined;
 
   const users = useUsers();
 
-  const isDetailOpen = researchGroupId !== undefined;
+  useEffect(() => {
+    if (!isDetailOpen) {
+      users.refetch();
+    }
+  }, [isDetailOpen]);
 
   const handleOpenDetail = (id: number) => {
     setResearchGroupId(id);
@@ -28,18 +33,19 @@ const ResearchGroupPage: React.FC<Props> = () => {
     params: GridRowParams<ResearchGroupType>,
     event: MouseEvent<HTMLElement>
   ) => {
-    console.log(params);
     if (params.row.id !== null) handleOpenDetail(params.row.id);
     event.preventDefault();
   };
 
   return (
     <>
-      <ResearchGroupDetail
-        researchGroupId={researchGroupId as number}
-        open={isDetailOpen}
-        onClose={handleCloseDetail}
-      />
+      {researchGroupId !== undefined && (
+        <ResearchGroupDetail
+          researchGroupId={researchGroupId as number}
+          open={isDetailOpen}
+          onClose={handleCloseDetail}
+        />
+      )}
       <ListContainer>
         <ListHeader>
           <GroupFilters />

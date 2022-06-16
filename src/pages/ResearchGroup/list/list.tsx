@@ -6,6 +6,7 @@ import DataGrid from "../../../components/DataGrid";
 import { GridRowParams } from "@mui/x-data-grid";
 import { useSearchParams } from "react-router-dom";
 import useColumns from "./columns";
+import { useIsAdmin } from "../../../auth/provider";
 
 type Props = {
   users: UserType[] | undefined;
@@ -23,6 +24,7 @@ const GroupList: React.FC<Props> = (props) => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search");
   const toActivation = searchParams.get("toActivation") === "true";
+  const isAdmin = useIsAdmin();
 
   useEffect(() => {
     if (users) {
@@ -31,7 +33,8 @@ const GroupList: React.FC<Props> = (props) => {
           .filter(
             (extraUser) => !search || extraUser.user?.login?.includes(search)
           )
-          .filter((extraUser) => !toActivation || !extraUser.user.activated)
+          .filter((extraUser) => !toActivation || !extraUser.user?.activated)
+          .filter((extraUser) => isAdmin || extraUser.user?.activated)
       );
     }
   }, [users, searchParams]);

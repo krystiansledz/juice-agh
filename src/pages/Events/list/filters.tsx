@@ -1,13 +1,11 @@
-import React, { ChangeEvent, useEffect } from "react";
-import { InputAdornment, TextField } from "@mui/material";
+import React, { ChangeEvent } from "react";
+import { Chip, InputAdornment, TextField, Stack } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 
-type Props = {};
-
-const EventFilters: React.FC<Props> = (props) => {
-  const {} = props;
+const EventFilters: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const researchGroupFilter = searchParams.get("researchGroup");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value) {
@@ -18,22 +16,52 @@ const EventFilters: React.FC<Props> = (props) => {
     setSearchParams(searchParams);
   };
 
+  const handleRemoveFilter = () => {
+    searchParams.delete("researchGroup");
+    setSearchParams(searchParams);
+  };
+
   return (
-    <TextField
-      type="text"
-      label="Szukaj po Tytuł, Koło, Opis"
-      value={searchParams.get("search") || ""}
-      onChange={handleChange}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <SearchIcon />
-          </InputAdornment>
-        ),
+    <Stack
+      sx={{
+        gap: "1rem",
+        alignItems: {
+          xs: "flex-start",
+          md: "center",
+        },
+        width: {
+          xs: "100%",
+          md: "60%",
+        },
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
       }}
-      size="small"
-      sx={{ width: "40%" }}
-    />
+    >
+      <TextField
+        type="text"
+        label="Szukaj po Tytuł, Koło, Opis"
+        value={searchParams.get("search") || ""}
+        onChange={handleChange}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        size="small"
+        sx={{ width: "100%" }}
+      />
+      {!!researchGroupFilter && (
+        <Chip
+          color="secondary"
+          label={researchGroupFilter}
+          onDelete={handleRemoveFilter}
+        />
+      )}
+    </Stack>
   );
 };
 

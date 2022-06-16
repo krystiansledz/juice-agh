@@ -29,7 +29,12 @@ const GroupFilters: React.FC = () => {
         ),
       }}
       size="small"
-      sx={{ width: "40%" }}
+      sx={{
+        width: {
+          xs: "100%",
+          md: "60%",
+        },
+      }}
     />
   );
 };

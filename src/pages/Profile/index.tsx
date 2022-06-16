@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Stack from "@mui/material/Stack";
 import WithLabel from "src/components/Form/WithLabel";
 import { Typography } from "@mui/material";
 import { Chip } from "@mui/material";
 import { BlocksEnum, FieldsColors, FieldsEnum } from "../../models/block.model";
-import { AuthContext } from "../../auth/provider";
+import { AuthContext, useIsAdmin } from "../../auth/provider";
 import PasswordForm from "./form";
+import { extraMe } from "../../auth/api";
+import { UserType } from "../../models/user.model";
 
-type Props = {
-  field?: FieldsEnum;
-};
-
-const ProfilePage: React.FC<Props> = (props) => {
-  const { field = FieldsEnum.ZIELONY } = props;
+const ProfilePage: React.FC = () => {
   const [user] = React.useContext(AuthContext);
+  const [extraUser, setExtraUser] = useState<UserType>();
+  const isAdmin = useIsAdmin();
+  const field = extraUser?.field;
+  const block = extraUser?.block;
 
-  const block = BlocksEnum.INFORMATYCZNY;
+  useEffect(() => {
+    if (!isAdmin) extraMe().then((data) => setExtraUser(data));
+  }, [isAdmin]);
 
   return (
     <Stack>
@@ -37,32 +40,38 @@ const ProfilePage: React.FC<Props> = (props) => {
             width: { xs: "50%", md: "15%" },
           }}
         >
+          <WithLabel label={isAdmin ? "Login" : "Nazwa koła / Login"}>
+            {user?.login}
+          </WithLabel>
+          {!isAdmin && field && block && (
+            <>
+              <WithLabel label={"Obszar"} component>
+                <Chip
+                  label={
+                    <Typography noWrap fontSize="0.75rem">
+                      {field}
+                    </Typography>
+                  }
+                  sx={{
+                    color: FieldsColors[field].color,
+                    backgroundColor: FieldsColors[field].backgroundColor,
+                  }}
+                />
+              </WithLabel>
+              <WithLabel label={"Blok"}>
+                <Chip
+                  label={
+                    <Typography noWrap fontSize="0.75rem">
+                      {block}
+                    </Typography>
+                  }
+                />
+              </WithLabel>
+            </>
+          )}
           <WithLabel label={"Imię"}>{user?.firstName}</WithLabel>
           <WithLabel label={"Nazwisko"}>{user?.lastName}</WithLabel>
           <WithLabel label={"Email"}>{user?.email}</WithLabel>
-          <WithLabel label={"Blok"}>
-            <Chip
-              label={
-                <Typography noWrap fontSize="0.75rem">
-                  {block}
-                </Typography>
-              }
-            />
-          </WithLabel>
-          <WithLabel label={"Nazwa koła"}>{user?.login}</WithLabel>
-          <WithLabel label={"Obszar"} component>
-            <Chip
-              label={
-                <Typography noWrap fontSize="0.75rem">
-                  {field}
-                </Typography>
-              }
-              sx={{
-                color: FieldsColors[field].color,
-                backgroundColor: FieldsColors[field].backgroundColor,
-              }}
-            />
-          </WithLabel>
         </Stack>
         <PasswordForm />
       </Stack>

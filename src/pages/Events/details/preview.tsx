@@ -23,6 +23,10 @@ const PreviewEventDetailModal: React.FC<Props> = (props) => {
             justifyContent: "space-evenly",
             padding: "1rem 0",
           }}
+          spacing={{
+            xs: 2,
+            md: 0,
+          }}
         >
           <Stack spacing={2}>
             <WithLabel label={"Nazwa"}>{event.title || "-"}</WithLabel>

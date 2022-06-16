@@ -1,65 +1,53 @@
-import { Button, DialogContent, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
 import WithLabel from "../../../components/Form/WithLabel";
 import BlockChip from "../../../components/BlockChip";
-import { BlocksEnum, FieldsEnum } from "../../../models/block.model";
 import FieldChip from "../../../components/FieldChip";
+import { UserType } from "../../../models/user.model";
 
 type Props = {
-  researchGroupId: number;
+  researchGroup: UserType;
 };
 
-const ResearchGroupFields: React.FC<Props> = () => {
+const ResearchGroupFields: React.FC<Props> = (props) => {
+  const { researchGroup } = props;
   return (
-    <>
-      <DialogContent>
-        <Stack
-          sx={{
-            flexDirection: { xs: "column", md: "row" },
-            width: "100%",
-            justifyContent: "space-evenly",
-            padding: "1rem 0",
-          }}
-        >
-          <>
-            <Stack spacing={2}>
-              <WithLabel label="Email">Email</WithLabel>
-              <WithLabel label="Nazwa Koła">Nazwa Koła</WithLabel>
-              <WithLabel label="Nazwisko">Nazwisko</WithLabel>
-            </Stack>
-
-            <Stack spacing={2}>
-              <WithLabel label="Obszar">
-                <FieldChip field={FieldsEnum.CZERWONY} />
-              </WithLabel>
-              <WithLabel label="Blok">
-                <BlockChip block={BlocksEnum.MATEMATYCZNY} />
-              </WithLabel>
-              <WithLabel label="Imię">Imię</WithLabel>
-              {false && ( // show only for admin
-                <WithLabel label="Aktywne">{true ? "Tak" : "Nie"}</WithLabel>
-              )}
-            </Stack>
-          </>
+    <Stack
+      sx={{
+        flexDirection: { xs: "column", md: "row" },
+        width: "100%",
+        justifyContent: "space-evenly",
+        padding: "1rem 0",
+      }}
+      spacing={{
+        xs: 2,
+        md: 0,
+      }}
+    >
+      <>
+        <Stack spacing={2}>
+          <WithLabel label="Nazwa Koła">
+            {researchGroup.user.login || "-"}
+          </WithLabel>
+          <WithLabel label="Obszar">
+            <FieldChip field={researchGroup.field} />
+          </WithLabel>
+          <WithLabel label="Blok">
+            <BlockChip block={researchGroup.block} />
+          </WithLabel>
         </Stack>
 
-        <Stack
-          sx={{
-            width: "100%",
-          }}
-        >
-          <Button
-            variant="contained"
-            sx={{
-              width: "40%",
-              margin: "0 auto",
-            }}
-          >
-            Wydarzenia organizowane przez koło
-          </Button>
+        <Stack spacing={2}>
+          <WithLabel label="Imię">
+            {researchGroup.user.firstName || "-"}
+          </WithLabel>
+          <WithLabel label="Nazwisko">
+            {researchGroup.user.lastName || "-"}
+          </WithLabel>
+          <WithLabel label="Email">{researchGroup.user.email || "-"}</WithLabel>
         </Stack>
-      </DialogContent>
-    </>
+      </>
+    </Stack>
   );
 };
 

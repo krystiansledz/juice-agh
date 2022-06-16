@@ -50,9 +50,13 @@ export const activeValueGridCellRenderer = (
 ) => {
   const isActive = params.value;
 
-  return isActive ? (
-    <CheckCircleIcon color="success" />
+  return isActive !== undefined ? (
+    isActive ? (
+      <CheckCircleIcon color="success" />
+    ) : (
+      <CancelIcon color="error" />
+    )
   ) : (
-    <CancelIcon color="error" />
+    "..."
   );
 };

@@ -6,6 +6,11 @@ import { ForgotPasswordFieldValues } from "../pages/ForgotPassword/schema";
 export const me = () =>
   axios.get(`${process.env.REACT_APP_API_HOST}/api/account`);
 
+export const extraMe = () =>
+  axios
+    .get(`${process.env.REACT_APP_API_HOST}/api/extra-users/current`)
+    .then((result) => result.data);
+
 export const loginUser = (data: LoginFieldValues) =>
   axios.post(`${process.env.REACT_APP_API_HOST}/api/authenticate`, {
     username: data.email,

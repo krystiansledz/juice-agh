@@ -15,24 +15,9 @@ export interface BaseUserType {
   lastModifiedDate?: Date | null;
 }
 
-export const baseUserDefaultValue: Readonly<BaseUserType> = {
-  id: 0,
-  login: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  activated: true,
-  langKey: "",
-  authorities: [],
-  createdBy: "",
-  createdDate: null,
-  lastModifiedBy: "",
-  lastModifiedDate: null,
-};
-
 export interface UserType {
   id: number;
-  block?: BlocksEnum | null;
-  field?: FieldsEnum | null;
+  block: BlocksEnum;
+  field: FieldsEnum;
   user: BaseUserType;
 }
