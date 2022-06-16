@@ -10,6 +10,25 @@ import ChangePasswordPage from "../pages/ChangePassword";
 
 export const NotAuthenticatedRoutes = [
   {
+    path: AppPaths.BaseUrl(),
+    element: <Navigate to={AppPaths.Events()} replace />,
+  },
+  {
+    path: AppPaths.Events(),
+    element: <EventsPage />,
+  },
+  {
+    path: AppPaths.ResearchGroups(),
+    element: <ResearchGroupPage />,
+  },
+];
+
+export const AdminRoutes = [
+  {
+    path: AppPaths.Admin(),
+    element: <Navigate to={AppPaths.Login()} replace />,
+  },
+  {
     path: AppPaths.Login(),
     element: <LoginPage />,
   },
@@ -29,23 +48,15 @@ export const NotAuthenticatedRoutes = [
 
 export const AuthenticatedRoutes = [
   {
-    path: AppPaths.BaseUrl(),
-    element: <Navigate to={AppPaths.Events()} replace />,
-  },
-  {
-    path: AppPaths.Events(),
-    element: <EventsPage />,
-  },
-  {
     path: AppPaths.Profile(),
     element: <ProfilePage />,
   },
   {
-    path: "*",
-    element: <Navigate to={AppPaths.Events()} replace />,
+    path: AppPaths.Events(true),
+    element: <EventsPage />,
   },
   {
-    path: AppPaths.ResearchGroups(),
+    path: AppPaths.ResearchGroups(true),
     element: <ResearchGroupPage />,
   },
 ];

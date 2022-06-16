@@ -26,17 +26,17 @@ const DrawerItems: React.FC<Props> = (props) => {
     {
       text: "Wydarzenia",
       icon: <EventNoteIcon />,
-      path: AppPaths.Events(),
+      path: AppPaths.Events(true),
     },
     {
       text: "Moje wydarzenia",
       icon: <EventIcon />,
-      path: AppPaths.Events(),
+      path: AppPaths.Events(true),
     },
     {
       text: "Koła",
       icon: <GroupIcon />,
-      path: AppPaths.ResearchGroups(),
+      path: AppPaths.ResearchGroups(true),
     },
   ];
 

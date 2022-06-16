@@ -12,7 +12,7 @@ const useNextLocation = () => {
     const nextLocation = searchParams.get("next");
     if (isAuthenticated) {
       if (nextLocation) navigate(nextLocation);
-      else navigate(AppPaths.BaseUrl());
+      else navigate(AppPaths.Events(true));
     }
   }, [searchParams, isAuthenticated]);
 };
