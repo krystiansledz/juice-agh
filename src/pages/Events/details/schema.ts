@@ -2,9 +2,9 @@ import yup from "../../../yup";
 
 export type EventFieldValues = {
   title: string;
-  startDate: string;
+  startDate: Date;
   description: string;
-  publicationDate: string;
+  publicationDate: Date;
   link: string;
 };
 
@@ -13,17 +13,15 @@ export const EventSchema = yup.object().shape({
   startDate: yup.string().required(),
   description: yup.string().required(),
   publicationDate: yup.string().required(),
-  link: yup.string().required(),
+  link: yup.string().url().required(),
 });
 
 export const defaultValues = {
   title: "",
-  endDate: new Date().toISOString(),
-  startDate: new Date().toISOString(),
+  startDate: new Date(),
   description: "",
-  publicationDate: new Date().toISOString(),
+  publicationDate: new Date(),
   link: "",
-
   imageUrl: "",
   status: "",
 };

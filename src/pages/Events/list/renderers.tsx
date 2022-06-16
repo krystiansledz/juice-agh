@@ -6,6 +6,7 @@ import TooltipOnEllipsis from "../../../components/TooltipOnEllipsis";
 import { Typography } from "@mui/material";
 import FieldChip from "../../../components/FieldChip";
 import BlockChip from "../../../components/BlockChip";
+import Link from "@mui/material/Link";
 
 // title
 
@@ -36,15 +37,39 @@ export const dateValueGridCellRenderer = (
   );
 };
 
-// description
+// link
 
-export const descriptionValueGridCellRenderer = (
-  params: GridCellParams<EventType["description"], EventType>
+export const linkValueGridCellRenderer = (
+  params: GridCellParams<EventType["link"], EventType>
 ) => {
+  const value = params.value;
   return (
-    <TooltipOnEllipsis title={params.value ?? ""}>
+    <TooltipOnEllipsis title={value ?? ""}>
       <Typography noWrap fontSize={14}>
-        {params.value}
+        {value ? (
+          <Link href={value} target="_blank">
+            {value}
+          </Link>
+        ) : (
+          "-"
+        )}
+      </Typography>
+    </TooltipOnEllipsis>
+  );
+};
+
+// research group
+
+export const researchGroupValueGridCellRenderer = (
+  params: GridCellParams<EventType["extraUser"], EventType>
+) => {
+  const value = params.row.extraUser?.user?.login;
+  if (!value) return "-";
+
+  return (
+    <TooltipOnEllipsis title={value ?? ""}>
+      <Typography noWrap fontSize={14}>
+        {value || "-"}
       </Typography>
     </TooltipOnEllipsis>
   );

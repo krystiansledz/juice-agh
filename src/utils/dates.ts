@@ -1,4 +1,5 @@
 import { format, toDate, utcToZonedTime } from "date-fns-tz";
+import plPL from "date-fns/locale/pl";
 
 const UTC_TZ = "UTC";
 
@@ -9,8 +10,8 @@ export const dateFormatter = (template: string) => (value: Date | string) => {
   const date = getDate(value);
 
   return date
-    ? format(utcToZonedTime(date, UTC_TZ), template, {
-        timeZone: UTC_TZ, // force UTC to match server if ignoring time
+    ? format(date, template, {
+        locale: plPL,
       })
     : "";
 };
@@ -20,7 +21,7 @@ export const dateTimeFormatter =
   (template: string) => (value: Date | string) => {
     const date = getDate(value);
 
-    return date ? format(date, template) : "";
+    return date ? format(date, template, { locale: plPL }) : "";
   };
 
 // date formatters
@@ -35,13 +36,13 @@ export const toMmmDYyyy = dateTimeFormatter("MMM d, yyyy");
 
 // date/time formatters
 
-export const toDdMmYyyyAndTime = dateTimeFormatter("dd.MM.yyyy hh:mm");
+export const toDdMmYyyyAndTime = dateTimeFormatter("dd.MM.yyyy HH:mm");
 
-export const toDdMmYyAndTime = dateTimeFormatter("dd.MM.yy hh:mm");
+export const toDdMmYyAndTime = dateTimeFormatter("dd.MM.yy HH:mm");
 
 export const toMmmDdYyyyAndTimeAmPm = dateTimeFormatter("MMM d, yyyy h:mm a");
 
-export const toYyyyMmDdAndTime = dateTimeFormatter("yyyy-MM-dd hh:mm");
+export const toYyyyMmDdAndTime = dateTimeFormatter("yyyy-MM-dd HH:mm");
 
 // for use with local Date
 

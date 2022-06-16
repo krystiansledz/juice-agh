@@ -36,6 +36,8 @@ export const postEvent = (user: BaseUserType, data: EventFieldValues) => {
     .post(`${process.env.REACT_APP_API_HOST}/api/calendar-events`, {
       ...defaultValues,
       ...data,
+      startDate: new Date(data.startDate).toISOString(),
+      publicationDate: new Date(data.publicationDate).toISOString(),
       user: { id: user.id, login: user.login },
     })
     .then((response) => response.data);
@@ -43,7 +45,11 @@ export const postEvent = (user: BaseUserType, data: EventFieldValues) => {
 
 export const putEvent = (id: number, data: EventFieldValues) => {
   return axios
-    .put(`${process.env.REACT_APP_API_HOST}/api/calendar-events/${id}`, data)
+    .put(`${process.env.REACT_APP_API_HOST}/api/calendar-events/${id}`, {
+      ...data,
+      startDate: new Date(data.startDate).toISOString(),
+      publicationDate: new Date(data.publicationDate).toISOString(),
+    })
     .then((response) => response.data);
 };
 

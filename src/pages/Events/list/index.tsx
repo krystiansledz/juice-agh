@@ -6,8 +6,9 @@ import AddIcon from "@mui/icons-material/Add";
 import EventDetail from "../details";
 import { GridRowParams } from "@mui/x-data-grid";
 import { EventType } from "../../../models/calendarEvent.model";
-import { useIsActive } from "../../../auth/provider";
+import { useIsActive, useIsAdmin } from "../../../auth/provider";
 import { useEvents } from "../api";
+import Filters from "./filters";
 
 const EventsPage: React.FC = () => {
   const [eventId, setEventId] = useState<number>();
@@ -16,6 +17,7 @@ const EventsPage: React.FC = () => {
 
   const isDetailOpen = eventId !== undefined;
   const isActive = useIsActive();
+  const isAdmin = useIsAdmin();
 
   useEffect(() => {
     if (!isDetailOpen) {
@@ -50,7 +52,8 @@ const EventsPage: React.FC = () => {
       )}
       <ListContainer>
         <ListHeader>
-          {isActive && (
+          <Filters />
+          {isActive && !isAdmin && (
             <Button
               color="secondary"
               variant="contained"

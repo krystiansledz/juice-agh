@@ -5,9 +5,9 @@ export interface EventType {
   title: string;
   startDate: string;
   endDate?: string | null;
-  publicationDate?: string;
-  description?: string;
-  link?: string;
+  publicationDate: string;
+  description: string;
+  link: string;
   imageUrl?: string | null;
   status?: string | null;
   extraUser: UserType | null;

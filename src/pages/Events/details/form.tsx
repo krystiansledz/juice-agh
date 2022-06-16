@@ -21,9 +21,15 @@ const FormEventDetailModal: React.FC<Props> = (props) => {
   const { formMode, onClose, event } = props;
   const [user] = React.useContext(AuthContext);
 
-  const { handleSubmit, control } = useForm<EventFieldValues>({
+  const { handleSubmit, control, formState } = useForm<EventFieldValues>({
     resolver: yupResolver(EventSchema),
-    defaultValues: event || defaultValues,
+    defaultValues: event
+      ? {
+          ...event,
+          publicationDate: new Date(event?.publicationDate || ""),
+          startDate: new Date(event?.startDate || ""),
+        }
+      : defaultValues,
   });
   const { enqueueSnackbar } = useSnackbar();
 
@@ -31,8 +37,8 @@ const FormEventDetailModal: React.FC<Props> = (props) => {
     if (formMode === FormMode.CREATE) {
       postEvent(user!, {
         ...data,
-        startDate: new Date(data.startDate).toISOString(),
-        publicationDate: new Date(data.startDate).toISOString(),
+        startDate: new Date(data.startDate),
+        publicationDate: new Date(data.startDate),
       })
         .then(() => {
           enqueueSnackbar("Wydarzenie zostało dodane", {
@@ -87,6 +93,10 @@ const FormEventDetailModal: React.FC<Props> = (props) => {
             justifyContent: "space-evenly",
             padding: "1rem 0",
           }}
+          spacing={{
+            xs: 2,
+            md: 0,
+          }}
         >
           <Stack spacing={2}>
             <TextInput control={control} name="title" label="Nazwa" />
@@ -94,7 +104,6 @@ const FormEventDetailModal: React.FC<Props> = (props) => {
               control={control}
               name="startDate"
               label="Data wydarzenia"
-              minDate={new Date()}
             />
           </Stack>
 
@@ -104,7 +113,6 @@ const FormEventDetailModal: React.FC<Props> = (props) => {
               control={control}
               name="publicationDate"
               label="Data publikacji"
-              minDate={new Date()}
             />
             <TextInput control={control} name="link" label="Link" />
           </Stack>

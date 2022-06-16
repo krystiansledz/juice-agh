@@ -2,6 +2,8 @@ import { Button, DialogActions, DialogContent, Stack } from "@mui/material";
 import React from "react";
 import { EventType } from "../../../models/calendarEvent.model";
 import WithLabel from "../../../components/Form/WithLabel";
+import { toDdMmYyAndTime } from "../../../utils/dates";
+import Link from "@mui/material/Link";
 
 type Props = {
   event: EventType;
@@ -23,13 +25,23 @@ const PreviewEventDetailModal: React.FC<Props> = (props) => {
           }}
         >
           <Stack spacing={2}>
-            <WithLabel label={"Nazwa"}>{event.title}</WithLabel>
-            <WithLabel label={"Data"}>{event.startDate}</WithLabel>
+            <WithLabel label={"Nazwa"}>{event.title || "-"}</WithLabel>
+            <WithLabel label={"Data"}>
+              {toDdMmYyAndTime(event.startDate) || "-"}
+            </WithLabel>
           </Stack>
 
           <Stack spacing={2}>
-            <WithLabel label={"Opis"}>{event.description}</WithLabel>
-            <WithLabel label={"Link"}>{event.link}</WithLabel>
+            <WithLabel label={"Opis"}>{event.description || "-"}</WithLabel>
+            <WithLabel label={"Link"}>
+              {event.link ? (
+                <Link href={event.link} target="_blank">
+                  {event.link}
+                </Link>
+              ) : (
+                "-"
+              )}
+            </WithLabel>
           </Stack>
         </Stack>
         <DialogActions

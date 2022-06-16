@@ -3,7 +3,10 @@ import { EventType } from "../../../models/calendarEvent.model";
 import columns from "./columns";
 import DataGrid from "../../../components/DataGrid";
 import { GridRowParams } from "@mui/x-data-grid";
-import { useEvents } from "../api";
+import { useSearchParams } from "react-router-dom";
+import { isFuture } from "date-fns";
+import { AuthContext, useIsAdmin, useIsOwner } from "../../../auth/provider";
+import { GridCellParams } from "@mui/x-data-grid";
 
 type Props = {
   events: EventType[] | undefined;
@@ -19,16 +22,43 @@ const EventList: React.FC<Props> = (props) => {
   const [filteredEvents, setFilteredEvents] = useState<EventType[]>(
     events || []
   );
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search");
+  const myEvents = searchParams.get("myEvents") === "true";
+  const isAdmin = useIsAdmin();
+  const [user] = React.useContext(AuthContext);
 
   useEffect(() => {
     if (events) {
       setFilteredEvents(
-        events.filter((event) => {
-          return !!event.extraUser; // filter events without user (admin created event)
-        })
+        events
+          .filter(
+            (event) =>
+              isAdmin || myEvents || !isFuture(new Date(event.publicationDate))
+          )
+          .filter(
+            (event) => !!event.extraUser // filter events without user (admin created event)
+          )
+          .filter(
+            (event) =>
+              !search ||
+              event.title.includes(search) ||
+              event.description?.includes(search) ||
+              event.extraUser?.user?.login?.includes(search)
+          )
+          .filter(
+            (event) => !myEvents || event.extraUser?.user?.id === user?.id
+          )
       );
     }
-  }, [events]);
+  }, [events, searchParams]);
+
+  const handleCellClick = (
+    param: GridCellParams,
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    param.field === "link" && event.stopPropagation();
+  };
 
   return (
     <DataGrid
@@ -38,6 +68,8 @@ const EventList: React.FC<Props> = (props) => {
       onRowClick={onRowClick}
       disableSelectionOnClick
       disableColumnMenu
+      hideFooterPagination={true}
+      onCellClick={handleCellClick}
     />
   );
 };

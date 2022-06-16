@@ -1,12 +1,10 @@
 import * as React from "react";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import Chip from "@mui/material/Chip/Chip";
-import { FieldsEnum } from "../../../models/block.model";
-import { appColors } from "../../../theme/defaults";
+import { GridColDef } from "@mui/x-data-grid";
 import {
   blockValueGridCellRenderer,
   dateValueGridCellRenderer,
-  descriptionValueGridCellRenderer,
+  linkValueGridCellRenderer,
+  researchGroupValueGridCellRenderer,
   fieldValueGridCellRenderer,
   titleValueGridCellRenderer,
 } from "./renderers";
@@ -25,10 +23,16 @@ const columns: GridColDef[] = [
     flex: 1,
   },
   {
-    field: "description",
-    headerName: "Opis",
-    renderCell: descriptionValueGridCellRenderer,
-    flex: 2,
+    field: "link",
+    headerName: "Link",
+    renderCell: linkValueGridCellRenderer,
+    flex: 1,
+  },
+  {
+    field: "researchGroup",
+    headerName: "Koło",
+    renderCell: researchGroupValueGridCellRenderer,
+    flex: 1,
   },
   {
     field: "field",
