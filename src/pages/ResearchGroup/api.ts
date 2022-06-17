@@ -10,7 +10,7 @@ const fetchUser = (id: number): Promise<UserType> => {
 };
 
 export const useUser = (id: number) => {
-  return useQuery(`event-${id}`, () => fetchUser(id), RQUERY_NOREFETCH_OPTIONS);
+  return useQuery(`user-${id}`, () => fetchUser(id), RQUERY_NOREFETCH_OPTIONS);
 };
 
 const fetchUsers = (): Promise<UserType[]> => {
@@ -20,7 +20,7 @@ const fetchUsers = (): Promise<UserType[]> => {
 };
 
 export const useUsers = () => {
-  return useQuery(`events`, () => fetchUsers(), RQUERY_NOREFETCH_OPTIONS);
+  return useQuery(`users`, () => fetchUsers(), RQUERY_NOREFETCH_OPTIONS);
 };
 
 export const toggleActivated = (id: number) => {
