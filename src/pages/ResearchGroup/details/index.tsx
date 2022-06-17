@@ -8,7 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import ResearchGroupFields from "./fields";
-import { putUser, useUser } from "../api";
+import { toggleActivated, useUser } from "../api";
 import { Link } from "react-router-dom";
 import AppPaths from "../../../router/appPaths";
 import { AuthContext, useIsAdmin } from "../../../auth/provider";
@@ -30,10 +30,7 @@ const ResearchGroupDetail: React.FC<Props> = (props) => {
 
   const handleToggleActivated = () => {
     if (researchGroup.data)
-      putUser({
-        ...researchGroup.data.user,
-        activated: !researchGroup.data.user.activated,
-      })
+      toggleActivated(researchGroup.data.user.id)
         .then(() => {
           enqueueSnackbar("Koło naukowe zostało edytowane", {
             variant: "success",

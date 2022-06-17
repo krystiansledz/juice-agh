@@ -23,8 +23,10 @@ export const useUsers = () => {
   return useQuery(`events`, () => fetchUsers(), RQUERY_NOREFETCH_OPTIONS);
 };
 
-export const putUser = (data: BaseUserType) => {
+export const toggleActivated = (id: number) => {
   return axios
-    .put(`${process.env.REACT_APP_API_HOST}/api/admin/users`, data)
+    .post(
+      `${process.env.REACT_APP_API_HOST}/api/admin/users/${id}/toggleActivated`
+    )
     .then((response) => response.data);
 };
